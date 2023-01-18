@@ -13,16 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('cursos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->enum('type', ['0', '1'])->default('0');
-            $table->string('password');
-            $table->rememberToken();
+            $table->text('name');
+            $table->text('description');
+            $table->integer('duration');
+            $table->smallInteger('modulos');
+            $table->float('price');
+            $table->integer('promotion');
             $table->timestamps();
         });
+
+        // name, description, duration, modulos, price, promotion
     }
 
     /**
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('cursos');
     }
 };
