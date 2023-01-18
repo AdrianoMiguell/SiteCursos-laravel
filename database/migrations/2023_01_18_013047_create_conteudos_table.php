@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text('name-content');
             $table->text('text-content');
-            $table->string('file-content');
+            $table->string('file-link');
             $table->foreignId('cursos_id')
                 ->constrained()
                 ->onUpdate('cascade')

@@ -19,7 +19,8 @@
     </style>
     <section class="bg-warning container">
         <h1>Criar curso</h1>
-        <form action="" method="post" class="">
+        <form action="{{route('create.curso')}}" method="post" class="mx-5">
+            @csrf
             <label for="name-curso">Nome do curso</label>
             <input class="form-control" type="text" id="name-curso" name="name" placeholder="Ex: Programando em Python">
 
@@ -32,23 +33,14 @@
             <label for="qtd-modulos">Quantidade de modulos</label>
             <input class="form-control" type="int" id="qtd-modulos" name="modulos" placeholder="Ex: 20 modulos">
 
-            <label for="qtd-modulos">Preço</label>
-            <input class="form-control" type="int" id="qtd-modulos" name="price" placeholder="Ex: 20 modulos">
+            <label for="price">Preço</label>
+            <input class="form-control" type="int" id="price" name="price" placeholder="Ex: 20 modulos">
 
-            <label for="qtd-modulos">Promoção</label>
-            <input class="form-control" type="int" id="qtd-modulos" name="promotion" placeholder="Digite apenas o número, sem simbolo de porcentagem">
+            <label for="promotion">Promoção</label>
+            <input class="form-control" type="int" id="promotion" name="promotion" placeholder="Digite apenas o número, sem simbolo de porcentagem">
+
+            <input type="submit" value="Enviar" class="btn btn-primary">
         </form>
     </section>
-
-    <section class="bg-success container my-5 py-2">
-        <h1>Criar modulos</h1>
-        <form action="" method="post" class="">
-            @for($i = 0; $i < 9; $i++)
-            <label for="name-curso">Modulo {{$i}}</label>
-            <input class="form-control" type="text" id="name-curso" name="name" placeholder="Ex: Programando em Python">
-            @endfor
-        </form>
-    </section>
-
 </body>
 </html>

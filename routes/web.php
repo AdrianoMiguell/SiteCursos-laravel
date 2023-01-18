@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CursoController;
+use App\Http\Controllers\Admin\ConteudoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('create', function() {
-        return view('admin.create');
-    });
+    Route::get('create-curso', function() {
+        return view('admin.create-curso');
+    })->name('create-curso');
+    Route::post('create', [CursoController::class, 'create'])->name('create.curso');
+    Route::get('view-create-conteudo', [ConteudoController::class, 'view'])->name('view-create-conteudo');
+
 });
 
 require __DIR__.'/auth.php';
