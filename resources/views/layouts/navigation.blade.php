@@ -1,4 +1,30 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<style>
+    nav{
+        /* position: absolute;
+        top: 0;
+        left: 0; */
+        margin: 0;
+        padding: .5rem 1rem;
+        background-attachment: fixed;
+        background: linear-gradient(130deg, rgb(--main-cor), rgb(--quaternary-cor));
+    }
+</style>
+
+<nav>
+    <div id="logo">LOGO</div>
+    <div id="content">
+        {{-- visão do usuario, criar curso, ver cursos,  --}}
+        <a class="btn btn-primary" href="{{ route('view-create-curso') }}"> + Curso </a>
+        <a class="btn btn-primary" href="{{ route('view-create-curso') }}"> Editar Curso </a>
+        <a class="btn btn-primary" href="{{ route('view.cursos') }}"> Ver Curso </a>
+    </div>
+    <div id="user">
+        <button></button>
+        <button></button>
+    </div>
+</nav>
+
+{{-- <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -97,4 +123,4 @@
             </div>
         </div>
     </div>
-</nav>
+</nav> --}}

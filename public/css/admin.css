@@ -1,0 +1,90 @@
+    #area-cursos {
+        /* background-color: rgb(45, 71, 68); */
+        border-radius: 5px;
+    }
+
+    #area-cursos>div {
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    #curso {
+        height: 22rem;
+        margin: 10px;
+        width: 20vw;
+        height: 45vh;
+        text-align: center;
+        display: inline-grid;
+        background-color: rgb(155, 243, 236);
+        box-shadow: 1px 1px 2px rgb(0, 71, 65);
+        word-wrap: break-word;
+        border-radius: 5px;
+    }
+    #nome-curso span{
+        color: rgb(0, 109, 109);
+    }
+    #descricao-curso{
+        font-size: 9pt;
+    }
+    #informacoes{
+        display: grid;
+    }
+    #nome-curso, #informacoes{
+        font-weight: bold;
+    }
+    #precos{
+        display: flex;
+        justify-content: space-around;
+        font-size: 15pt;
+        color: rgb(0, 109, 109);
+        font-weight: bold;
+    }
+
+    #btn-curso{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+        padding: .5rem;
+    }
+    #btn-curso, #btn-curso a{
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    #btn-curso a{
+        background-color: rgb(0, 165, 165);
+        padding: .5rem;
+        transition-duration: .5s;
+    }
+    #btn-curso a:hover{
+        background-color: rgb(0, 134, 134);
+        transition-duration: .5s;
+    }
+
+    @media screen and (max-width: 900px) {
+        #area-cursos {
+            margin: auto 0;
+            /* font-size: 9pt; */
+        }
+        #curso{
+            width: 35vw;
+        }
+
+        #descricao-curso{
+            font-size: 7.5pt;
+        }
+    }
+
+    /* <div class="nome-curso"> {{$curso->name}} </div>
+                        <div class="descricao-curso"> {{$curso->description}} </div>
+                        <div class="duracao-curso"> {{$curso->duration}} </div>
+                        <div class="modulos-curso"> {{$curso->modulos}} </div>
+                        <div class="preco-atual"> {{$curso->price}} </div>
+                        <div class="preco-promocional">
+                            <span class="qtd-promocao"> {{$curso->promotion}} </span>
+                            <span class="preco"> {{$curso->promotion}} </span>
+                            {{-- <span class="cartoes-parcela"> {{$curso->name}} </span> --}}
+                        </div> */

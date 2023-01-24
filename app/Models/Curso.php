@@ -11,6 +11,7 @@ class Curso extends Model
 
     protected $fillable=[
         'name',
+        'image',
         'description',
         'duration',
         'modulos',

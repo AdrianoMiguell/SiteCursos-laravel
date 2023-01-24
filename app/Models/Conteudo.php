@@ -10,9 +10,9 @@ class Conteudo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name-content',
-        'text-content',
-        'file-content',
+        'name',
+        'text',
+        'file_link',
         'cursos_id'
     ];
 

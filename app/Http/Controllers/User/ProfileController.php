@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,16 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+
+    public function dashboard() {
+        if(Auth::user()->type == '1') {
+            return redirect()->route('view.cursos');
+        }
+        else{
+            return view('user.dashboard');
+        }
+    }
+
     public function edit(Request $request): View
     {
         return view('profile.edit', [
