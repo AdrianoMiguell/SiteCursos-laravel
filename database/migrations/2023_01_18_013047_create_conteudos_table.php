@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('conteudos', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('text', 10000);
-            $table->string('file_link');
-            $table->foreignId('cursos_id')
+            $table->string('text', 2500);
+            $table->string('link');
+            $table->foreignId('curso_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

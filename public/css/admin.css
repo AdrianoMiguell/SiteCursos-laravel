@@ -11,11 +11,10 @@
         padding: 10px;
     }
 
-    #curso {
-        height: 22rem;
+    .curso {
+        padding: 1px;
         margin: 10px;
         width: 20vw;
-        height: 45vh;
         text-align: center;
         display: inline-grid;
         background-color: rgb(155, 243, 236);
@@ -23,57 +22,67 @@
         word-wrap: break-word;
         border-radius: 5px;
     }
-    #nome-curso span{
+    .img-curso{
+        width: 20vw;
+        height: 10rem;
+        border-radius: 5px;
+    }
+    .nome-curso span{
         color: rgb(0, 109, 109);
     }
-    #descricao-curso{
+    .descricao-curso{
         font-size: 9pt;
     }
-    #informacoes{
+    .informacoes{
         display: grid;
     }
-    #nome-curso, #informacoes{
+    .nome-curso, .informacoes{
         font-weight: bold;
     }
-    #precos{
-        display: flex;
-        justify-content: space-around;
-        font-size: 15pt;
+    .desconto{
+        display: grid;
+        column-gap: 5px;
+    }
+    .preco, .valorAtual, .promocao{
+        font-size: 12pt;
         color: rgb(0, 109, 109);
         font-weight: bold;
     }
 
-    #btn-curso{
+    .div-btn{
         display: flex;
         justify-content: flex-end;
         align-items: center;
         gap: 1rem;
         padding: .5rem;
     }
-    #btn-curso, #btn-curso a{
+    .div-btn, .btn-curso{
         border-radius: 5px;
         cursor: pointer;
     }
-    #btn-curso a{
+    .btn-curso{
         background-color: rgb(0, 165, 165);
         padding: .5rem;
+        text-decoration: none;
+        color: white;
         transition-duration: .5s;
+        border: none;
     }
-    #btn-curso a:hover{
+    .btn-curso:hover{
         background-color: rgb(0, 134, 134);
         transition-duration: .5s;
     }
 
     @media screen and (max-width: 900px) {
-        #area-cursos {
+        .area-cursos {
             margin: auto 0;
             /* font-size: 9pt; */
         }
-        #curso{
+        .curso{
             width: 35vw;
         }
 
-        #descricao-curso{
+        .descricao-curso{
             font-size: 7.5pt;
         }
     }
@@ -84,7 +93,7 @@
                         <div class="modulos-curso"> {{$curso->modulos}} </div>
                         <div class="preco-atual"> {{$curso->price}} </div>
                         <div class="preco-promocional">
-                            <span class="qtd-promocao"> {{$curso->promotion}} </span>
+                            <span class="valorAtual-promocao"> {{$curso->promotion}} </span>
                             <span class="preco"> {{$curso->promotion}} </span>
                             {{-- <span class="cartoes-parcela"> {{$curso->name}} </span> --}}
                         </div> */

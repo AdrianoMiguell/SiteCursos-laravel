@@ -12,8 +12,8 @@ class Conteudo extends Model
     protected $fillable = [
         'name',
         'text',
-        'file_link',
-        'cursos_id'
+        'link',
+        'curso_id'
     ];
 
     public function curso()

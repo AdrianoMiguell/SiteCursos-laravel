@@ -11,8 +11,33 @@
     color: #e09f7d;
     color: #3c887e;
     color: #414288; */
-    color: rgb(222, 239, 183);
+    color: rgb(65, 66, 136);
     color: rgb(224, 159, 125);
     color: rgb(60, 136, 126);
-    color: rgb(65, 66, 136);
+    color: rgb(222, 239, 183);
+}
+
+#navbar{
+    margin: 0;
+    padding: .5rem 1rem;
+    background-attachment: fixed;
+    background: linear-gradient( to right, rgb(var(--main-cor)), rgb(var(--tertiary-cor)));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnGeral{
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: rgb(var(--secondary-cor));
+    color: rgb(var(--quaternary-cor));
+    margin: auto 5px;
+    font-style: bold;
+    cursor: pointer;
+}
+
+.corte{
+    font-style: oblique;
 }
