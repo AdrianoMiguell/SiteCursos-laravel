@@ -26,6 +26,9 @@
     @include('layouts.navigation')
     {{-- <div :errors="$errors"> </div> --}}
     <!-- Page Content -->
+    <x-auth-session-status class="position-fixed alert alert-primary bottom-0 end-0 m-2" :status="session('status')" />
+    <x-input-error :messages="$errors->get('email')" class="position-fixed alert alert-primary bottom-0 end-0 m-2" />
+
     <main>
         {{-- <section class="container m-auto text-center"> --}}
         @yield('content')

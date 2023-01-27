@@ -18,17 +18,18 @@ class CursoController extends Controller
             'description' => 'required',
             'duration' => 'required',
             'modulos' => 'required',
-            'price' => 'required',
+            'real_price' => 'required',
             'promotion' => 'required',
         ]);
 
         $curso = $request->except('_token');
         $curso['image'] = $request->image->store('images');
+        $curso['promotion_price'] = ($curso['real_price']) - ($curso['real_price'] * $curso['promotion']) / 100;
         $curso = Curso::create($curso);
         $id = $curso['id'];
 
         return redirect()->route('view-create-conteudo', ['id' => $id])
-            ->with('status', 'dados criados com sucesso!');
+            ->with('status', 'Dados criados com sucesso!');
     }
 
     public function edit(Request $request)
@@ -41,7 +42,7 @@ class CursoController extends Controller
             'description' => 'required',
             'duration' => 'required',
             'modulos' => 'required',
-            'price' => 'required',
+            'real_price' => 'required',
             'promotion' => 'required',
         ]);
 
@@ -62,6 +63,16 @@ class CursoController extends Controller
                     ->with('status', 'Você não pode mudar o número de modulos para um número menor. Exclua os conteúdos manualmente!');
             }
         }
+        if ($request->promotion != $ago_curso->promotion || $request->real_price != $ago_curso->real_price) {
+            if ($request->promotion != 0) {
+                $curso['promotion_price'] = ($request->real_price) - ($request->real_price * $request->promotion) / 100;
+            }
+            else{
+                $curso['promotion_price'] = $request->real_price;
+            }
+        }
+
+        // dd($curso['promotion_price']);
 
         Curso::findOrFail($id)->update($curso);
 

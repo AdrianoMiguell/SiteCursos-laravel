@@ -15,8 +15,9 @@ class Curso extends Model
         'description',
         'duration',
         'modulos',
-        'price',
+        'real_price',
         'promotion',
+        'promotion_price',
     ];
 
     public function conteudos()

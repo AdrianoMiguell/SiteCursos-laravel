@@ -7,9 +7,10 @@
             padding: 1rem;
         }
     </style>
-    <section class="bg-warning container">
-        <h1>Criar curso</h1>
-        <form action="{{ route('create.curso') }}" method="post" class="mx-5" enctype="multipart/form-data">
+    <section class="container">
+        <form action="{{ route('create.curso') }}" method="post" class="m-5" enctype="multipart/form-data">
+            <legend class="text-center">Criar curso</legend>
+
             @csrf
             <label for="name-curso">Nome do curso</label>
             <input class="form-control" type="text" id="name-curso" name="name" maxlength="100" placeholder="Ex: Programando em Python">
@@ -26,14 +27,14 @@
             <label for="qtd-modulos">Quantidade de modulos</label>
             <input class="form-control" type="int" id="qtd-modulos" name="modulos" placeholder="Ex: 20 modulos">
 
-            <label for="price">Preço</label>
-            <input class="form-control" type="int" id="price" name="price" placeholder="Ex: 20 modulos">
+            <label for="real_price">Preço</label>
+            <input class="form-control" type="int" id="real_price" name="real_price" placeholder="Ex: 20 modulos">
 
-            <label for="promotion">Promoção</label>
+            <label for="promotion">Promoção (%)</label>
             <input class="form-control" type="int" id="promotion" name="promotion"
                 placeholder="Digite apenas o número, sem simbolo de porcentagem">
 
-            <input type="submit" value="Enviar" class="btn btn-primary">
+            <input type="submit" value="Enviar" class="btnGeral m-auto my-2">
         </form>
     </section>
     </body>

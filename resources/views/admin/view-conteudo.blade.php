@@ -17,7 +17,6 @@
                 padding: 1rem;
             }
         </style>
-        <x-auth-session-status class="mb-4" :status="session('status')" />
         <section class="bg-warning bg-opacity-25 container my-3 p-5 rounded">
             <h1>Criar modulos</h1>
             <h4>Nome do Curso: {{ $curso[0]->name }}</h4>

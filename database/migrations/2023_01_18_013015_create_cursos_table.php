@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('description', 500);
             $table->mediumInteger('duration');
             $table->smallInteger('modulos');
-            $table->float('price');
+            $table->float('real_price');
             $table->smallInteger('promotion');
+            $table->float('promotion_price');
             $table->timestamps();
         });
 

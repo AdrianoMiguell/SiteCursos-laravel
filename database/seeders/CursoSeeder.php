@@ -21,8 +21,9 @@ class CursoSeeder extends Seeder
             'description' => 'Melhor curso de Java',
             'duration' => '20',
             'modulos' => '2',
-            'price' => '1',
+            'real_price' => '1',
             'promotion' => '0',
+            'promotion_price' => '1',
         ]);
     }
 }

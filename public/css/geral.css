@@ -4,6 +4,8 @@
     --secondary-cor: 224, 159, 125;
     --tertiary-cor: 60, 136, 126;
     --quaternary-cor: 222, 239, 183;
+    --white-cor: 255, 255, 255;
+    --black-cor: 0, 0, 0;
 }
 
 #teste{
@@ -15,6 +17,7 @@
     color: rgb(224, 159, 125);
     color: rgb(60, 136, 126);
     color: rgb(222, 239, 183);
+    color: rgb(255, 255, 255);
 }
 
 #navbar{
@@ -31,11 +34,21 @@
     padding: 5px 10px;
     border-radius: 5px;
     text-decoration: none;
+    border: 1px solid rgb(var(--tertiary-cor));
     background-color: rgb(var(--secondary-cor));
     color: rgb(var(--quaternary-cor));
     margin: auto 5px;
     font-style: bold;
     cursor: pointer;
+}
+
+.btnGeral:hover{
+    background-color: rgba(var(--tertiary-cor));
+    color: rgb(var(--quaternary-cor));
+    transition-duration: .5s;
+}
+.btnGeral:not(hover){
+    transition-duration: .5s;
 }
 
 .corte{

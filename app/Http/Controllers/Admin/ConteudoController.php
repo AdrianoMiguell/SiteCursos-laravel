@@ -70,7 +70,7 @@ class ConteudoController extends Controller
 
         $conteudo = $request->except('_token');
         $id = $conteudo['id'];
-
+        
         $conteudo = Conteudo::findOrFail($id)->update($conteudo);
         return back()
             ->with('status', 'dados editados com sucesso!');

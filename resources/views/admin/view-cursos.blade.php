@@ -2,9 +2,6 @@
 
 @section('content')
     <section class="container py-5">
-        <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
         <h1 class="fs-3"> Todos os cursos </h1>
 
         <section id="area-cursos" class="my-3">
@@ -20,13 +17,13 @@
                         </div>
                         {{-- <div class="precos"> --}}
                         @if ($curso->promotion != 0)
-                            <span class="preco" style="text-decoration: line-through;"> Preço : R$ {{ $curso->price }} </span>
+                            <span class="preco" style="text-decoration: line-through;"> Preço: R$ {{ $curso->real_price }} </span>
                             <div class="desconto">
                                 <span class="promocao"> Desconto de {{ $curso->promotion }}% </span>
-                                <span class="valorAtual"> R$ {{ ($curso->price) - ($curso->price * $curso->promotion) / 100 }} </span>
+                                <span class="valorAtual"> Novo preço: R$ {{ $curso->promotion_price }} </span>
                             </div>
                         @else
-                            <span class="preco"> Preço : R$ {{ $curso->price }} </span>
+                            <span class="preco"> Preço: R$ {{ $curso->real_price }} </span>
                         @endif
                         {{-- </div> --}}
                         {{-- <span class="cartoes-parcela"> {{$curso->name}} </span> --}}
@@ -80,9 +77,9 @@
                                         <input class="form-control" type="int" id="qtd-modulos"
                                             value="{{ $curso->modulos }}" name="modulos">
 
-                                        <label for="price">Preço</label>
-                                        <input class="form-control" type="int" id="price"
-                                            value="{{ $curso->price }}" name="price">
+                                        <label for="real_price">Preço</label>
+                                        <input class="form-control" type="int" id="real_price"
+                                            value="{{ $curso->real_price }}" name="real_price">
 
                                         <label for="promotion">Promoção</label>
                                         <input class="form-control" type="int" id="promotion"
