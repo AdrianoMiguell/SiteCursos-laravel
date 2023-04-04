@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="d-flex justify-content-around py-5 p-3" style="background-color: rgba(var(--secondary-cor), 1);">
-        <div>
+    <section class="d-flex justify-content-around flex-wrap p-3 pt-5">
+        <div class="section_gradient_dark text-light p-3 rounded">
             <form method="post" action="{{ route('edit.curso', ['id' => $curso[0]->id]) }}" class="d-grid gap-2 p-2 px-5"
-                enctype="multipart/form-data" style="width: 35vw;">
+                enctype="multipart/form-data">
                 @csrf
-                <legend>Editar curso</legend>
+                <legend class="textDec">Editar curso</legend>
                 <label for="name-curso">Nome do curso</label>
                 <input class="form-control" type="text" id="name-curso" value="{{ $curso[0]->name }}" name="name">
                 <div class="d-grid gap-1">
-                    <label for="image-curso">Imagem do curso</label>
-                    <img src="{{ asset('storage/' . $curso[0]->image) }}" alt="" class="img-curso">
+                    <label for="img-curso">Imagem do curso</label>
+                    <img src="{{ asset('storage/' . $curso[0]->img) }}" alt="" class="img-curso">
                     <div>
-                        <label for="image-curso">Nova imagem</label>
-                        <input class="form-control" type="file" id="image-curso" name="image">
+                        <label for="img-curso">Nova imagem</label>
+                        <input class="form-control" type="file" id="img-curso" name="img">
                     </div>
                 </div>
                 <label for="description-curso">Descrição</label>
@@ -36,9 +36,9 @@
 
         @if (isset($conteudos) && $conteudos->count() != null)
             <div>
-                <h1>Editar modulos</h1>
+                <h4 class="textDec text-dark"> Editar modulos</h4>
                 @foreach ($conteudos as $key => $cs)
-                    <form action="{{ route('edit.conteudo', ['id' => $cs->id]) }}" method="post" class=""
+                    <form action="{{ route('edit.conteudo', ['id' => $cs->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="my-4 grid gap-3">
@@ -46,9 +46,7 @@
                             <input class="form-control" type="text" id="name" name="name"
                                 placeholder="Digite o nome do modulo" value="{{ $cs->name ?? '' }}" required>
                             <label for="text">Texto <span class="text-danger">(informação ou conteúdo)</span> </label>
-                            <textarea class="form-control" type="text" id="text" name="text"
-                                placeholder="Um texto como conteúdo ou apenas com informações iniciais para o caso do conteúdo ser dado em um arquivo pdf."
-                                minlength="50" maxlength="10000" required> {{ $cs->text }} </textarea>
+                            <textarea class="form-control" type="text" id="text" name="text" maxlength="2500" required> {{ $cs->text }} </textarea>
                             <label for="link">Link do material <span class="text-danger">(obs: Se o conteúdo for o
                                     próprio
                                     texto,
@@ -74,13 +72,10 @@
 
         @if (isset($conteudos) && $curso[0]->modulos > $conteudos->count())
             <div>
-                <form action="{{ route('create.conteudo') }}" method="post" class="p-2 px-3">
-                    <legend> Criar novos modulos</legend>
+                <form action="{{ route('create.conteudo') }}" method="post">
+                    <legend class="textDec text-dark"> Criar novos modulos </legend>
                     @csrf
                     @for ($i = 0; $i < $curso[0]->modulos - $conteudos->count(); $i++)
-                        {{-- @if (isset($conteudos) && $conteudos != null && $i + 1 > $conteudos->count()) --}}
-                        {{-- @if (isset($conteudos) && $conteudos != null && $i + 1 <= $conteudos->count()) --}}
-
                         <div class="my-4 grid gap-3">
                             <label for="name">Nome do {{ $i + 1 }}° novo modulo</label>
                             <input class="form-control" type="text" id="name" name="name[]"
@@ -97,10 +92,7 @@
                                     deixe este campo vazio)</span></label>
                             <input class="form-control" type="text" id="link" name="link[]"
                                 placeholder="Digite o nome do modulo">
-                            {{-- <input class="form-control" type="file" id="file-link" name="file-link[]"
-                            placeholder="Digite o nome do modulo"> --}}
                         </div>
-                        {{-- @endif --}}
                     @endfor
                     <input type="number" name="curso_id" value="{{ $curso[0]->id }}" class="d-none">
                     <input type="submit" class="btnGeral my-2 mx-auto" value="Enviar">

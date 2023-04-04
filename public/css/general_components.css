@@ -1,0 +1,74 @@
+.btnGeral {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    margin: auto 5px;
+    font-style: bold;
+    cursor: pointer;
+}
+.btnGeral:not(hover) {
+    background-color: rgb(var(--sec-cor));
+    color: rgb(var(--main-cor));
+    box-shadow: 0 0 1px 1px rgb(var(--main-cor));
+    transition-duration: .5s;
+}
+.btnGeral:hover {
+    background-color: rgba(var(--main-cor));
+    box-shadow: 0 0 1px 1px rgb(var(--sec-cor));
+    color: rgb(var(--white-cor));
+    transition-duration: .5s;
+}
+
+.section_gradient_dark{
+    background: linear-gradient( 160deg, rgb(var(--main-cor)) 85%, rgb(var(--main-cor), .9) 100%);
+}
+.section_gradient_light{
+    background: linear-gradient(135deg, rgba(var(--tert-cor), .2) 80%, rgba(var(--tert-cor), .3) 100%);
+}
+
+.main_limit{
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+.block_style{
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.block {
+    display: none !important;
+}
+
+.corte {
+    font-style: oblique;
+}
+
+.dark_text{
+    color: rgb(var(--main-cor));
+}
+.light_text{
+    color: rgb(var(--white-cor));
+}
+
+.link{
+    text-decoration: none;
+    font-style: italic;
+}
+.link:hover{
+    font-weight: 600;
+}
+
+.link_block:not(hover), .link_block:not(focus), .link_block:focus, .link_block:hover
+{
+    background-color: rgba(var(--black-cor), .6);
+    color: rgb(var(--white-cor));
+    box-shadow: none;
+    cursor: auto;
+}
+
+.conteudo_link{
+    margin: 0 1em;
+}

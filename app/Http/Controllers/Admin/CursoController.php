@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Conteudo;
 use App\Models\Curso;
+use App\Models\Matricula;
+use App\Models\Questionario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CursoController extends Controller
@@ -13,22 +16,25 @@ class CursoController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'image' => 'required|image|max: 10000',
-            'description' => 'required',
-            'duration' => 'required',
-            'modulos' => 'required',
+            'name' => 'required|string',
+            'img' => 'required|image|max: 10000',
+            'desc' => 'required|string',
+            'duration' => 'required|integer',
+            'modulos' => 'required|integer',
             'real_price' => 'required',
-            'promotion' => 'required',
+            'promotion' => 'required|integer',
+        ],[
+            'img.max' => 'A imagem é muito grande!',
+            'real_price.decimal' => 'O número não é um decimal!',
         ]);
 
         $curso = $request->except('_token');
-        $curso['image'] = $request->image->store('images');
+        $curso['img'] = $request->img->store('images');
         $curso['promotion_price'] = ($curso['real_price']) - ($curso['real_price'] * $curso['promotion']) / 100;
-        $curso = Curso::create($curso);
-        $id = $curso['id'];
 
-        return redirect()->route('view-create-conteudo', ['id' => $id])
+        $curso = Curso::create($curso);
+
+        return redirect()->route('view-create-conteudo', ['curso_id' => $curso['id']])
             ->with('status', 'Dados criados com sucesso!');
     }
 
@@ -38,20 +44,20 @@ class CursoController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'image' => 'nullable|image|max: 10000',
-            'description' => 'required',
+            'img' => 'nullable|image|max: 10000',
+            'desc' => 'required',
             'duration' => 'required',
             'modulos' => 'required',
             'real_price' => 'required',
             'promotion' => 'required',
         ]);
 
-        if (!empty($request->image)) {
-            Storage::delete($request->image);
-            $curso['image'] = $request->image->store('images');
+        if (!empty($request->img)) {
+            Storage::delete($request->img);
+            $curso['img'] = $request->img->store('images');
             $curso = $request->except('_token');
         } else {
-            $curso = $request->except('_token', 'image');
+            $curso = $request->except('_token', 'img');
         }
 
         $ago_curso = Curso::findOrFail($id);
@@ -72,8 +78,6 @@ class CursoController extends Controller
             }
         }
 
-        // dd($curso['promotion_price']);
-
         Curso::findOrFail($id)->update($curso);
 
         return back()
@@ -89,6 +93,7 @@ class CursoController extends Controller
             $conteudos[$i]->delete();
         }
 
+        Storage::delete($curso->img);
         $curso->delete();
 
         return back()->with('status', 'Deletado com sucesso!');
@@ -97,11 +102,17 @@ class CursoController extends Controller
     public function cursos()
     {
         $cursos = Curso::all();
-        if (empty($cursos[0]->id)) {
+        if (empty($cursos[0]->id) && Auth::user()->type == 1) {
             return redirect()->route('view-create-curso');
         }
-        $admin = true;
-        return view('admin.view-cursos', compact('cursos', 'admin'));
+
+        if(isset(Auth::user()->id)) {
+            $matricula = Matricula::where('user_id', Auth::user()->id)->get();
+            return view('admin.view-cursos', compact('cursos', 'matricula'));
+        }
+        else{
+        return view('admin.view-cursos', compact('cursos'));
+        }
     }
 
     public function conteudos(Request $request)
@@ -114,6 +125,11 @@ class CursoController extends Controller
 
         $curso = Curso::where('id', $id)->get();
         $conteudos = Conteudo::where('curso_id', $id)->get();
+        $quests= Questionario::where('curso_id', $id)->get();
+
+        if(!isset($quests[0]->id)){
+            return redirect()->route('view-create-quest', ['id' => $id]);
+        }
         $tot_modulos = $curso[0]->modulos;
 
         if (empty($curso[0]->id)) {
@@ -127,6 +143,6 @@ class CursoController extends Controller
                 ->with('status', 'Conteudos do curso não estão concluidos!');
         }
 
-        return view('admin.view-conteudo', compact('curso', 'conteudos'));
+        return view('admin.view-conteudo', compact('curso', 'conteudos', 'quests'));
     }
 }

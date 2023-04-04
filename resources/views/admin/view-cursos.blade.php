@@ -8,7 +8,7 @@
             <div class="">
                 @forelse ($cursos as $key => $curso)
                     <div class="curso">
-                        <img src="{{ asset('storage/' . $curso->image) }}" alt="" class="img-curso">
+                        <img src="{{ asset('storage/' . $curso->img) }}" alt="" class="img-curso">
                         <span class="nome-curso"> Curso {{ $key + 1 }}: <span>{{ $curso->name }}</span> </span>
                         <span class="descricao-curso"> {{ $curso->description }} </span>
                         <div class="informacoes">

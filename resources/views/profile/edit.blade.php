@@ -7,7 +7,7 @@
         </h2>
     </div>
 
-    <div class="py-12">
+    <div class="p-4 rounded">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
@@ -23,10 +23,9 @@
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    <h1>Logout</h1>
-                    <form method="POST" action="{{ route('logout') }}">
+                    <h1 class="textDec">Logout</h1>
+                    <form method="POST" action="{{ route('logout') }}" class="bg-transparent shadow-none p-0 m-0">
                         @csrf
-
                         <a :href="route('logout')"
                             onclick="event.preventDefault();
                                             this.closest('form').submit();"

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Curso;
+use App\Models\Matricula;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,12 +18,21 @@ class ProfileController extends Controller
      * Display the user's profile form.
      */
 
-    public function dashboard() {
-        if(Auth::user()->type == '1') {
+    public function dashboard()
+    {
+        if (Auth::user()->type == '1') {
             return redirect()->route('view.cursos');
         }
-        else{
-            return view('user.dashboard');
+
+        $matricula = Matricula::where('user_id', Auth::user()->id)->get();
+        $cursos = Curso::orderBy('name', 'asc')->paginate(8);
+
+        if (isset($matricula[0]->id)) {
+            $mycursos = Curso::where('id', $matricula[0]->curso_id)->get();
+
+            return view('user.dashboard', compact('matricula', 'cursos', 'mycursos'));
+        } else {
+            return view('user.dashboard', compact('cursos'));
         }
     }
 

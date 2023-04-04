@@ -13,6 +13,7 @@ class Conteudo extends Model
         'name',
         'text',
         'link',
+        'numbering',
         'curso_id'
     ];
 

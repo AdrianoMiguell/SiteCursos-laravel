@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             CursoSeeder::class,
             ConteudoSeeder::class,
+            QuestionarioSeeder::class,
         ]);
     }
 }

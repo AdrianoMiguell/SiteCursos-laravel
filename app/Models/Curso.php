@@ -11,8 +11,8 @@ class Curso extends Model
 
     protected $fillable=[
         'name',
-        'image',
-        'description',
+        'img',
+        'desc',
         'duration',
         'modulos',
         'real_price',
@@ -23,5 +23,10 @@ class Curso extends Model
     public function conteudos()
     {
         return $this->hasMany(Conteudo::class);
+    }
+
+    public function matricula()
+    {
+        return $this->belongsTo(Matricula::class);
     }
 }

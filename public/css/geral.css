@@ -1,56 +1,92 @@
 /* https://coolors.co/deefb7-e09f7d-3c887e-414288 */
-:root{
-    --main-cor: 65, 66, 136;
-    --secondary-cor: 224, 159, 125;
-    --tertiary-cor: 60, 136, 126;
-    --quaternary-cor: 222, 239, 183;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,600;1,400&display=swap');
+
+:root {
+    --main-cor: 2, 19, 67;
+    --sec-cor: 224, 159, 125;
+    --tert-cor: 245, 225, 214;
+    --quat-cor: 60, 136, 126;
+    --quint-cor: 65, 66, 136;
     --white-cor: 255, 255, 255;
     --black-cor: 0, 0, 0;
 }
 
-#teste{
-    /* color: #deefb7;
+#teste {
+    color: #021343;
     color: #e09f7d;
+    color: #f5e1d6;
     color: #3c887e;
-    color: #414288; */
-    color: rgb(65, 66, 136);
-    color: rgb(224, 159, 125);
-    color: rgb(60, 136, 126);
-    color: rgb(222, 239, 183);
-    color: rgb(255, 255, 255);
+    color: #414288;
 }
 
-#navbar{
+* {
     margin: 0;
-    padding: .5rem 1rem;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+main{
+    min-height: 100vh;
+}
+
+#navbar {
+    margin: 0;
+    padding: .5em 2em;
     background-attachment: fixed;
-    background: linear-gradient( to right, rgb(var(--main-cor)), rgb(var(--tertiary-cor)));
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.btnGeral{
-    padding: 5px 10px;
-    border-radius: 5px;
+#navbar {
+    background-color: rgb(var(--main-cor));
+}
+#logo_link{
     text-decoration: none;
-    border: 1px solid rgb(var(--tertiary-cor));
-    background-color: rgb(var(--secondary-cor));
-    color: rgb(var(--quaternary-cor));
-    margin: auto 5px;
-    font-style: bold;
-    cursor: pointer;
+}
+#logo_div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1px;
+}
+#logo_div span{
+    text-decoration: none;
+    font-size: 13pt;
+}
+#logo_div img{
+    width: auto;
+    height: 2.5em;
+    filter: brightness(1);
+}
+#logo_div img:hover{
+    filter: brightness(.92);
 }
 
-.btnGeral:hover{
-    background-color: rgba(var(--tertiary-cor));
-    color: rgb(var(--quaternary-cor));
-    transition-duration: .5s;
-}
-.btnGeral:not(hover){
-    transition-duration: .5s;
+.textDec, #logo_div {
+    color: rgb(var(--sec-cor));
+    text-shadow: 1px 1px 1px rgb(var(--quat-cor));
+    font-size: larger;
+    font-weight: bold;
 }
 
-.corte{
-    font-style: oblique;
+.background {
+    background-color: rgba(var(--sec-cor), .75);
+    color: rgb(var(--main-cor));
+    box-shadow: 1px 1px 1px rgb(var(--main-cor));
+    padding: 5px;
+    border-radius: 5px;
+}
+
+footer{
+    background-color: rgb(var(--main-cor));
+    margin-top: 1em;
+    margin-bottom: 0;
+    padding: 2.5em;
+    color: rgb(var(--white-cor))
 }

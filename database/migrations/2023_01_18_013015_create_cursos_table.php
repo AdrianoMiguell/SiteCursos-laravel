@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('image');
-            $table->string('description', 500);
+            $table->string('img')->nullable();
+            $table->string('desc', 500);
             $table->mediumInteger('duration');
             $table->smallInteger('modulos');
             $table->float('real_price');

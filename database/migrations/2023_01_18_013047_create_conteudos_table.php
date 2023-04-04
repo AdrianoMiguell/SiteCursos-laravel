@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('conteudos', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
+            $table->string('img')->nullable();
             $table->string('text', 2500);
-            $table->string('link');
+            $table->string('link')->nullable();
+            $table->smallInteger('numbering');
             $table->foreignId('curso_id')
                 ->constrained()
                 ->onUpdate('cascade')

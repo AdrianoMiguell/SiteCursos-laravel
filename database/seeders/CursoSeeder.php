@@ -16,14 +16,35 @@ class CursoSeeder extends Seeder
     public function run()
     {
         DB::table('cursos')->insert([
-            'name' => 'Curso de Java',
-            'image' => 'images/java.jpg',
-            'description' => 'Melhor curso de Java',
-            'duration' => '20',
-            'modulos' => '2',
-            'real_price' => '1',
-            'promotion' => '0',
-            'promotion_price' => '1',
+            [
+                'name' => 'Curso de Java',
+                'img' => 'images/java.jpg',
+                'desc' => 'Melhor curso de Java',
+                'duration' => '20',
+                'modulos' => '2',
+                'real_price' => '1',
+                'promotion' => '100',
+                'promotion_price' => '0'
+            ], [
+                'name' => 'Curso de PHP',
+                'img' => 'images/basico.jpg',
+                'desc' => 'Melhor curso basico',
+                'duration' => '20',
+                'modulos' => '1',
+                'real_price' => '0',
+                'promotion' => '0',
+                'promotion_price' => '0'
+            ],
+            [
+                'name' => 'Curso de HTML',
+                'img' => 'images/basico.jpg',
+                'desc' => 'Melhor curso',
+                'duration' => '20',
+                'modulos' => '1',
+                'real_price' => '10',
+                'promotion' => '50',
+                'promotion_price' => '5'
+            ]
         ]);
     }
 }
