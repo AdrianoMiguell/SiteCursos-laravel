@@ -9,7 +9,10 @@ use App\Models\Matricula;
 use App\Models\Questionario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+// use Mpdf\Mpdf;
+// use MpdfException;
+
+// use PDFBarcode;
 
 class MatriculaController extends Controller
 {
@@ -261,34 +264,11 @@ class MatriculaController extends Controller
 
     // public function certificado(Request $request)
     // {
-    //     if (!isset($request->matricula_id) && !isset($request->matricula_id)) {
-    //         return redirect()->route('/')->with('status', '404 Not Found');
-    //     }
+    //     $pdf = new MpdfException();
 
-    //     $matricula = Matricula::find($request->matricula_id);
-    //     $curso = Curso::find($request->curso_id);
 
-    //     return Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
-    //         ->loadView('documents.certificado', compact('curso', 'matricula'))
-    //         ->setPaper('a4')
-    //         ->stream('certificado.pdf');
-    //     // return view('documents.certificado', compact('curso', 'matricula'));
-    // }
+    //     // $pdf = ::loadView('pdf.document');
 
-    // public function imprimir(Request $request)
-    // {
-    //     // $matricula = Matricula::find($request->matricula_id);
-    //     // $curso = Curso::find($request->curso_id);
-    //     // return view('documents.certificado', compact('curso', 'matricula'));
-    //     // $pdf = Pdf::setOption(, null);
-    //     // $pdf->isRemoteEnabled('true');
-
-    //     // $pdf = Pdf::loadView('documents.certificado', compact('curso', 'matricula'));
-    //     // return $pdf->setPaper('a4')->stream('certificado.pdf');
-
-    //     // return Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
-    //     //     ->loadView('documents.certificado', compact('curso', 'matricula', 'image'))
-    //     //     ->setPaper('a4')
-    //     //     ->stream('certificado.pdf');
+    //     // return $pdf->stream('document.pdf');
     // }
 }
