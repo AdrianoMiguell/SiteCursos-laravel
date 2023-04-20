@@ -9,6 +9,7 @@ use App\Models\Matricula;
 use App\Models\Questionario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use \Mpdf\Mpdf as PDF;
 // use Mpdf\Mpdf;
 // use MpdfException;
 
@@ -19,32 +20,35 @@ class MatriculaController extends Controller
 
     public function index()
     {
+        $cursos = Curso::all();
+
+        // if (isset($cursos)) {
+        //     $qs = Questionario::all();
+        //     $cs = Conteudo::all();
+
+        //     // if (isset($qs) && isset($cs)) {
+        //     //     if (count($cs) != count($cursos) && count($qs) != count($cursos)) {
+        //     //         foreach ($cursos as $crs) {
+        //     //             foreach ($qs as $q) {
+        //     //                 foreach ($cs as $c) {
+
+        //     //                 }
+        //     //             }
+        //     //         }
+        //     //     }
+        //     // } else {
+        //     //     return view('index');
+        //     // }
+        // }
+
         if (isset(Auth::user()->id)) {
             $matricula = Matricula::where('user_id', Auth::user()->id)->get();
-        } else {
-            $matricula = null;
-        }
-
-        $curso = Curso::all();
-        for ($i = 0; $i < count($curso); $i++) {
-            $conteudo = Conteudo::where('curso_id', $curso[$i]->id)->get();
-            $quest = Questionario::where('curso_id', $curso[$i]->id)->get();
-            if (isset($conteudo[0]->id) && isset($quest[0]->id)) {
-                $num[] = $curso[$i]->id;
-            }
-        }
-
-        if (isset($num) && !empty($num) && count($num) == count($curso)) {
-            $cursos = Curso::orderBy('name', 'asc')->paginate(8);
-        } else if (!empty($num) && count($num) < count($curso)) {
-            for ($i = 0; $i < count($num); $i++) {
-                $cursos = Conteudo::where('id', $num[$i])->paginate(8);
-            }
+            return view('index', compact('cursos', 'matricula'));
+        } else if (isset($cursos)) {
+            return view('index', compact('cursos'));
         } else {
             return view('index');
         }
-
-        return view('index', compact('cursos', 'matricula'));
     }
 
     public function matricula(Request $request)

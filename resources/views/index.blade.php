@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="initial_area" class="section_gradient_dark">
-        <div>
-            <h2 style="font-weight: 800; font-size: 32pt;"> Mergulhe em Tecnologia </h2>
+    <section class="m-0 mb-5 p-5 section_gradient_dark text_light">
+        <div class="m-5">
+            <h2 class="text_light_gradient" style="font-weight: 800; font-size: 32pt; margin-bottom: 1em;"> Mergulhe em
+                Tecnologia </h2>
             <p> Você vai estudar, praticar e discutir e se aprofundar com o apoio de nossos cursos. </p>
         </div>
-        <div class="d-flex justify-content-evenly gap-5">
+        <div class="d-flex justify-content-evenly gap-5 m-5">
             <div class="tags">
                 <span class="text-primary text-center"> Front-end </span>
             </div>
@@ -18,19 +19,71 @@
             </div>
         </div>
 
+        <div class="mt-5 my-3 simpleGradient area_coments rounded-4"
+            style="flex-wrap: wrap; box-shadow: 0 0 1px 2px rgb(var(--quint-cor)), 0 0 2px 4px rgb(var(--sec-cor)); backdrop-filter: opacity(.5);">
+            @if (isset($coments))
+            @else
+                <blockquote>
+                    Se a educação sozinha não muda a sociedade, sem ela a sociedade tão pouco muda! <br> <strong>Paulo
+                        Freire</strong>
+                </blockquote>
+            @endif
+        </div>
+    </section>
 
+    <section class="mt-2 mb-5 py-5 d-grid gap-5">
+
+        <div id="for_user main_limit mt-5 mb-2 py-2 mx-5">
+            <h2 class="mx-5 px-5 text-center textRealist">
+                Venha experimentar os melhores cursos sobre programação, design e vários outros temas!
+            </h2>
+        </div>
+
+        <div class="d-flex justify-content-evenly text-dark flex-wrap align-items-center mt-1 mb-5">
+            <img src="https://img.freepik.com/vetores-gratis/estudante-de-menino-sentado-na-pilha-de-livros-com-ilustracao-de-icone-plana-de-laptop_1284-64037.jpg?w=740&t=st=1681406162~exp=1681406762~hmac=27f27703d42194dd8909eb51256f25dea689d74dfeeec1d4860443926ace3423"
+                alt="" class="imgP">
+            <blockquote class="text_dark p-2 rounded-1" style="width: 30em;">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quo a delectus facere! Sunt distinctio
+                asperiores
+                quaerat odio corporis, necessitatibus nam laudantium, odit nobis, consequuntur architecto mollitia.
+                Suscipit,
+                commodi quasi?
+            </blockquote>
+        </div>
+
+        <div class="d-flex justify-content-evenly text-dark flex-wrap align-items-center my-5">
+            <blockquote class="text_dark p-2 rounded-1" style="width: 30em;">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quo a delectus facere! Sunt distinctio
+                asperiores
+                quaerat odio corporis, necessitatibus nam laudantium, odit nobis, consequuntur architecto mollitia.
+                Suscipit,
+                commodi quasi?
+            </blockquote>
+            <img src="https://img.freepik.com/vetores-gratis/estudante-de-menino-sentado-na-pilha-de-livros-com-ilustracao-de-icone-plana-de-laptop_1284-64037.jpg?w=740&t=st=1681406162~exp=1681406762~hmac=27f27703d42194dd8909eb51256f25dea689d74dfeeec1d4860443926ace3423"
+                alt="" class="imgP">
+        </div>
+    </section>
+
+    <div class="my-3 simpleGradient area_coments" style="flex-wrap: wrap;">
+        @if (isset($coments))
+        @else
+            <blockquote>
+                Se a educação sozinha não muda a sociedade, sem ela a sociedade tão pouco muda! <br> <strong>Paulo
+                    Freire</strong>
+            </blockquote>
+        @endif
     </div>
 
-    <div class="search_div">
+    {{-- <div class="search_div">
         <div class="search_img">
-            <img class="img-curso"
+            <img class="img_curso"
                 src="https://img.freepik.com/vetores-gratis/ilustracao-do-conceito-de-cerebro-de-curiosidade_114360-11037.jpg?w=740&t=st=1680082052~exp=1680082652~hmac=9b9faa6873395a0c748784a865d1efc252786238185aa60d053231a9ecefdfa3"
                 alt="">
             <div><a href="https://br.freepik.com/vetores-gratis/ilustracao-do-conceito-de-cerebro-de-curiosidade_30576698.htm#query=brain&position=49&from_view=search&track=sph"
                     style="text-decoration: none;">Imagem de storyset</a> no Freepik</div>
         </div>
-        <form action="" method="post" class="search_form">
-            <input type="search" name="" id="" class="search_input" maxlength="25" size="30">
+        <form action="{{route('search');}}" method="post" class="search_form">
+            <input type="search" name="search" id="search_input" maxlength="25" size="30">
             <button type="submit" class="search_btn btnGeral">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-search" viewBox="0 0 16 16">
@@ -39,33 +92,34 @@
                 </svg>
             </button>
         </form>
-    </div>
+    </div> --}}
 
-    <section class="area-cursos section_gradient_dark text-light my-5">
-        <h4 class="text-center">Cursos disponiveis</h4>
+    <section class="area_cursos section_gradient_dark light_text my-5">
+        <h4 class="text-center fw-bolder fs-2 my-5">Cursos disponiveis</h4>
         <div>
             @if (isset($cursos))
                 @forelse ($cursos as $key => $curso)
-                    <div class="curso section_gradient_light">
-                        <img src="{{ asset('storage/' . $curso->img) }}" alt="" class="img-curso">
-                        <span class="nome-curso"> {{ $curso->name }} </span>
-                        <span class="descricao-curso"> {{ $curso->desc }} </span>
-                        <div class="informacoes">
-                            <span class="duracao-curso"> Duração : {{ $curso->duration }} </span>
-                            <span class="modulos-curso"> Modulos : {{ $curso->modulos }} </span>
+                    <div class="curso section_gradient_light light_text">
+                        <img src="{{ asset('storage/' . $curso->img) }}" alt="" class="img_curso">
+                        <span class="nome_curso"> {{ $curso->name }} </span>
+                        <span class="desc_curso"> {{ $curso->desc }} </span>
+                        <span class="duracao_curso"> Duração : {{ $curso->duration }} </span>
+                        <span class="modulos_curso"> Modulos : {{ $curso->modulos }} </span>
+                        <div class="bege_text">
+                            @if ($curso->promotion == 0)
+                                <span class="preco"> Preço: R$ {{ $curso->promotion_price }} </span>
+                            @elseif($curso->promotion_price == 0)
+                                <span class="preco"> Gratuito </span>
+                            @else
+                                <span class="preco" style="text-decoration: line-through;"> Preço: R$
+                                    {{ $curso->real_price }}
+                                </span>
+                                <div class="desconto">
+                                    <span class="promocao"> Desconto de {{ $curso->promotion }}% </span>
+                                    <span class="valorAtual"> Novo preço: R$ {{ $curso->promotion_price }} </span>
+                                </div>
+                            @endif
                         </div>
-                        @if ($curso->promotion == 0)
-                            <span class="preco"> Preço: R$ {{ $curso->promotion_price }} </span>
-                        @elseif($curso->promotion_price == 0)
-                            <span class="preco"> Gratuito </span>
-                        @else
-                            <span class="preco" style="text-decoration: line-through;"> Preço: R$ {{ $curso->real_price }}
-                            </span>
-                            <div class="desconto">
-                                <span class="promocao"> Desconto de {{ $curso->promotion }}% </span>
-                                <span class="valorAtual"> Novo preço: R$ {{ $curso->promotion_price }} </span>
-                            </div>
-                        @endif
                         <div class="div-btn">
                             <a class="btnGeral" href="{{ route('view.curso', ['curso_id' => $curso->id]) }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -83,57 +137,17 @@
                     </div>
                 @endforelse
                 <div class="my-5">
-                    {{ $cursos->links('vendor.pagination.bootstrap-4') }}
+                    <a href="" class="btnGeral"> Outros cursos </a>
                 </div>
             @endif
         </div>
     </section>
 
-    <div id="for_user main_limit">
-        <h2 class="text-center">
-            Venha experimentar os melhores cursos sobre programação, design e vários outros temas!
-        </h2>
+    <div class="my-3 mb-5 simpleGradient area_coments" style="flex-wrap: wrap;">
+        <blockquote>
+            Se a educação sozinha não muda a sociedade, sem ela a sociedade tão pouco muda! <br> <strong>Paulo
+                Freire</strong>
+        </blockquote>
     </div>
 
-    <section class="initial_info main_limit">
-        <blockquote>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quo a delectus facere! Sunt distinctio
-            asperiores
-            quaerat odio corporis, necessitatibus nam laudantium, odit nobis, consequuntur architecto mollitia. Suscipit,
-            commodi quasi?
-        </blockquote>
-        <div class="d-flex justify-content-around">
-            <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore, distinctio. Voluptatibus quae
-                voluptatum,
-                pariatur error dolores recusandae possimus debitis modi nostrum est illo nam explicabo maxime fugit,
-                voluptate
-                dignissimos ipsum?</div>
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. At, suscipit hic ad nesciunt, ipsam provident
-                laudantium modi repudiandae ut architecto perspiciatis assumenda minima tempore eius autem quisquam
-                exercitationem quas accusamus.</div>
-        </div>
-        <div class="d-flex justify-content-around">
-            <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore, distinctio. Voluptatibus quae
-                voluptatum,
-                pariatur error dolores recusandae possimus debitis modi nostrum est illo nam explicabo maxime fugit,
-                voluptate
-                dignissimos ipsum?</div>
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. At, suscipit hic ad nesciunt, ipsam provident
-                laudantium modi repudiandae ut architecto perspiciatis assumenda minima tempore eius autem quisquam
-                exercitationem quas accusamus.</div>
-        </div>
-    </section>
-
-
-    <section id="area-coments" class="my-3 main_limit" style="flex-wrap: wrap;">
-        <h4>Reflexão</h4>
-
-        @if (isset($coments))
-        @else
-            <blockquote>
-                Se a educação sozinha não muda a sociedade, sem ela a sociedade tão pouco muda! <br> <strong>Paulo
-                    Freire</strong>
-            </blockquote>
-        @endif
-    </section>
 @endsection

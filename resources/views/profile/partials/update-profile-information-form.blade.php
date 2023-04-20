@@ -1,10 +1,10 @@
 <section>
     <header>
-        <h2 class="textDec">
+        <h2 class="textDec fs-2">
             {{ __('Profile Information') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
+        <p>
             {{ __("Update your account's profile information and email address.") }}
         </p>
     </header>
@@ -47,8 +47,8 @@
             @endif
         </div>
 
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+        <div class="d-flex align-items-center gap-3">
+            <x-primary-button class="my-2">{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p

@@ -4,8 +4,8 @@
     text-decoration: none;
     border: none;
     margin: auto 5px;
-    font-style: bold;
     cursor: pointer;
+    text-align: center;
 }
 .btnGeral:not(hover) {
     background-color: rgb(var(--sec-cor));
@@ -24,7 +24,7 @@
     background: linear-gradient( 160deg, rgb(var(--main-cor)) 85%, rgb(var(--main-cor), .9) 100%);
 }
 .section_gradient_light{
-    background: linear-gradient(135deg, rgba(var(--tert-cor), .2) 80%, rgba(var(--tert-cor), .3) 100%);
+    background: linear-gradient(to bottom, rgb(var(--tert-cor)), rgb(var(--sec-cor)) 120%);
 }
 
 .main_limit{
@@ -52,6 +52,9 @@
 .light_text{
     color: rgb(var(--white-cor));
 }
+.bege_text{
+    color: rgb(var(--sec-cor));
+}
 
 .link{
     text-decoration: none;
@@ -59,6 +62,13 @@
 }
 .link:hover{
     font-weight: 600;
+}
+
+.light_border{
+    border: 2px solid rgb(var(--tert-cor));
+}
+.dark_border{
+    border: 2px solid rgb(var(--main-cor));
 }
 
 .link_block:not(hover), .link_block:not(focus), .link_block:focus, .link_block:hover

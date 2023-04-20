@@ -23,7 +23,7 @@ class QuestionarioSeeder extends Seeder
                 'perg' => 'Qual o significado por trás da palavra JAVA?',
                 'resp1' => 'O nome da terra de origem do café',
                 'resp2' => 'Um sinônimo da palavra "Javali"',
-                'resp3' => 'Uma cmaisa de marca',
+                'resp3' => 'Uma camisa de marca',
                 'respTrue' => '1',
                 'curso_id' => '1'
             ],

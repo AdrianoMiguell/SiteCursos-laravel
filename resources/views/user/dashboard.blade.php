@@ -15,9 +15,33 @@
         position: absolute;
         bottom: 0;
     }
+
+    .img_legend {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .img_legend>.legend {
+        font-size: 10pt
+    }
 </style>
 
 @section('content')
+    <form action="{{ route('search') }}" method="POST" class="search_form p-5 m-0 mb-3 d-block text-center"
+        style="background-color: rgba(var(--main-cor), .98);">
+        <legend class="text-light"> Pesquisa </legend>
+        <input type="search" name="search" id="search_input" maxlength="25" size="30">
+        <button type="submit" class="search_btn btnGeral">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+        </button>
+    </form>
+
     @if (isset($matricula))
         <div class="view_cursos mt-5">
             <div class="view_cursos_content" onclick="view_curso(0)"> Cursos disponibiizados </div>
@@ -31,49 +55,7 @@
     @endif
 
     <section class="area-cursos mt-5 my-1">
-        <div>
-            {{-- @if (isset($cursos)) --}}
-            @forelse ($cursos as $key => $curso)
-                <div class="curso section_gradient_dark light_text">
-                    <img src="{{ asset('storage/' . $curso->img) }}" alt="" class="img-curso">
-                    <span class="nome-curso"> {{ $curso->name }} </span>
-                    <span class="descricao-curso"> {{ $curso->desc }} </span>
-                    <div class="informacoes">
-                        <span class="duracao-curso"> Duração : {{ $curso->duration }} </span>
-                        <span class="modulos-curso"> Modulos : {{ $curso->modulos }} </span>
-                    </div>
-                    @if ($curso->promotion == 0)
-                        <span class="preco"> Preço: R$ {{ $curso->promotion_price }} </span>
-                    @elseif($curso->promotion_price == 0)
-                        <span class="preco"> Gratuito </span>
-                    @else
-                        <span class="preco" style="text-decoration: line-through;"> Preço: R$ {{ $curso->real_price }}
-                        </span>
-                        <div class="desconto">
-                            <span class="promocao"> Desconto de {{ $curso->promotion }}% </span>
-                            <span class="valorAtual"> Novo preço: R$ {{ $curso->promotion_price }} </span>
-                        </div>
-                    @endif
-                    <div class="div-btn">
-                        <a class="btnGeral" href="{{ route('view.curso', ['curso_id' => $curso->id]) }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                <path
-                                    d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                            </svg>
-                            visualizar</a>
-                    </div>
-                </div>
-            @empty
-                <div class="alert alery-primary">
-                    <h1>Nenhum curso cadastrado</h1>
-                </div>
-            @endforelse
-            <div class="my-1">
-                {{ $cursos->links('vendor.pagination.bootstrap-4') }}
-            </div>
-        </div>
+        @include('user.cursos-all')
     </section>
 
     @if (isset($matricula))
@@ -85,19 +67,6 @@
         @foreach ($cursos as $key => $c)
             @foreach ($matricula as $m)
                 @if ($m->curso_id == $c->id && $m->status == 'concluido')
-                    <style>
-                        .img_legend {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            gap: 5px;
-                        }
-
-                        .img_legend>.legend {
-                            font-size: 10pt
-                        }
-                    </style>
-
                     <section class="area-cursos mt-5 my-1 gap-5">
                         <div class="img_legend">
                             <img src="https://img.freepik.com/vetores-gratis/ilustracao-de-certificacao-iso-com-pessoas-e-bloco-de-notas_23-2148689291.jpg?w=740&t=st=1680278085~exp=1680278685~hmac=b60e87305dee46a75aa245d3c40c4e0fab4dc8b871701d01e79fd886bd16d439"
@@ -118,4 +87,5 @@
             @endforeach
         @endforeach
     @endif
+
 @endsection

@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/profile', 'update')->name('profile.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
         Route::get('/dashboard', 'dashboard')->middleware('verified')->name('dashboard');
+        Route::get('search', 'search')->name('search');
     });
 
     Route::controller(MatriculaController::class)->group(function () {
@@ -43,12 +44,12 @@ Route::middleware('auth')->group(function () {
             Route::get('view-cursos', 'cursos')->name('view.cursos');
             Route::get('view-conteudos', 'conteudos')->name('view.conteudos');
             Route::post('create-curso', 'create')->name('create.curso');
+            Route::post('view-create-curso', 'view')->name('view-create-curso');
             Route::post('edit-curso', 'edit')->name('edit.curso');
             Route::delete('delete_curso/{id}', 'delete')->name('delete.curso');
         });
 
         Route::controller(ConteudoController::class)->group(function () {
-            Route::get('view-create-conteudo', 'view')->name('view-create-conteudo');
             Route::post('edit', 'edit')->name('edit.conteudo');
             Route::post('create-content', 'create')->name('create.conteudo');
             Route::delete('delete_conteudo/{id}', 'delete')->name('delete.conteudo');

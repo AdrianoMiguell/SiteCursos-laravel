@@ -25,15 +25,14 @@ class ProfileController extends Controller
         }
 
         $matricula = Matricula::where('user_id', Auth::user()->id)->get();
+
         $cursos = Curso::orderBy('name', 'asc')->paginate(8);
-
-        if (isset($matricula[0]->id)) {
-            $mycursos = Curso::where('id', $matricula[0]->curso_id)->get();
-
-            return view('user.dashboard', compact('matricula', 'cursos', 'mycursos'));
-        } else {
+        
+        if (!isset($matricula[0]->id)) {
             return view('user.dashboard', compact('cursos'));
         }
+
+        return view('user.dashboard', compact('matricula', 'cursos'));
     }
 
     public function edit(Request $request): View

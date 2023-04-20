@@ -10,22 +10,6 @@ use Illuminate\Http\Request;
 
 class ConteudoController extends Controller
 {
-    public function view(Request $request)
-    {
-        $id = $request->curso_id;
-        $curso = Curso::where('id', $id)->get();
-        $conteudos = Conteudo::where('curso_id', $id)->get();
-
-        if (!isset($id)) {
-            return redirect()->route('view-create-curso')
-                ->with('status', 'Curso não encontrado');
-        } else if (!empty($id) && !empty($conteudos)) {
-            return view('admin.create-conteudo', compact('curso', 'conteudos'));
-        } else {
-            return view('admin.create-conteudo', compact('curso'));
-        }
-    }
-
     public function create(Request $request)
     {
         $id = $request->curso_id;
@@ -34,7 +18,7 @@ class ConteudoController extends Controller
         $dbConteudos = Conteudo::where('curso_id', $id)->get();
 
         if (empty($dbConteudos[0]->id) || count($dbConteudos) < $qtd) {
-            if(count($dbConteudos) < $qtd) {
+            if (count($dbConteudos) < $qtd) {
                 $new_qtd = $qtd;
                 $qtd = $new_qtd - count($dbConteudos);
             }

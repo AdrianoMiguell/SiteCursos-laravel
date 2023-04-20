@@ -1,6 +1,6 @@
 <section class="space-y-6">
     <header>
-        <h2 class="textDec">
+        <h2 class="textDec fs-2">
             {{ __('Delete Account') }}
         </h2>
 

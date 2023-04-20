@@ -13,11 +13,13 @@ class Curso extends Model
         'name',
         'img',
         'desc',
+        'desc_more',
         'duration',
         'modulos',
         'real_price',
         'promotion',
         'promotion_price',
+        'ready'
     ];
 
     public function conteudos()

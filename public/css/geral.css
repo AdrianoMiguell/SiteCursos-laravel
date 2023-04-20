@@ -1,5 +1,6 @@
 /* https://coolors.co/deefb7-e09f7d-3c887e-414288 */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
 
 :root {
     --main-cor: 2, 19, 67;
@@ -29,7 +30,7 @@ body {
     overflow-x: hidden;
 }
 
-main{
+main {
     min-height: 100vh;
 }
 
@@ -45,45 +46,77 @@ main{
 #navbar {
     background-color: rgb(var(--main-cor));
 }
-#logo_link{
+
+#logo_link {
     text-decoration: none;
 }
-#logo_div{
+
+#logo_div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     row-gap: 1px;
 }
-#logo_div span{
+
+#logo_div span {
     text-decoration: none;
     font-size: 13pt;
 }
-#logo_div img{
+
+#logo_div img {
     width: auto;
     height: 2.5em;
     filter: brightness(1);
 }
-#logo_div img:hover{
+
+#logo_div img:hover {
     filter: brightness(.92);
 }
 
-.textDec, #logo_div {
+.textDec,
+#logo_div {
     color: rgb(var(--sec-cor));
     text-shadow: 1px 1px 1px rgb(var(--quat-cor));
     font-size: larger;
     font-weight: bold;
 }
 
-.background {
-    background-color: rgba(var(--sec-cor), .75);
+.text_realist {
+    font-family: 'Source Sans Pro', sans-serif;
     color: rgb(var(--main-cor));
-    box-shadow: 1px 1px 1px rgb(var(--main-cor));
-    padding: 5px;
-    border-radius: 5px;
+    /* text-decoration-line: ; */
+    text-shadow: 0 0 2px rgb(var(--tert-cor)), 0 0 3px rgb(var(--quat-cor));
 }
 
-footer{
+.text_light_gradient {
+    /* font-family: 'Source Sans Pro', sans-serif; */
+    background-image: linear-gradient(to bottom, rgb(var(--sec-cor)), rgb(var(--tert-cor)));
+    color: black;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.text_dark_gradient {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-image: linear-gradient(to bottom, rgb(var(--main-cor)), rgb(var(--quint-cor)));
+    color: black;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.simpleGradient {
+    /* background: radial-gradient(); */
+    background: radial-gradient(ellipse at top, rgb(var(--sec-cor)), rgb(var(--tert-cor)));
+}
+
+.imgP {
+    width: 25em;
+    height: auto;
+}
+
+footer {
     background-color: rgb(var(--main-cor));
     margin-top: 1em;
     margin-bottom: 0;

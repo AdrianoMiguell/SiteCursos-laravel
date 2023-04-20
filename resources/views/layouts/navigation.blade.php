@@ -45,11 +45,6 @@
                     <img src="{{ asset('storage/icons/plus-circle.svg') }}" alt="visualize" class="mx-1">
                     Curso
                 </a>
-                <a href="{{ url('/dashboard') }}" class="btnGeral">
-                    <img src="{{ asset('storage/icons/eye.svg') }}" alt="visualize" class="mx-1" width="18"
-                        height="18">
-                    Usuário
-                </a>
             </div>
         @else
         @endif

@@ -18,11 +18,13 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('img')->nullable();
             $table->string('desc', 500);
+            $table->string('desc_more', 5000);
             $table->mediumInteger('duration');
             $table->smallInteger('modulos');
             $table->float('real_price');
             $table->smallInteger('promotion');
             $table->float('promotion_price');
+            $table->string('ready', 10);
             $table->timestamps();
         });
 

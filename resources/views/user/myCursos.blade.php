@@ -24,17 +24,17 @@
                         @else
                             <span class="preco"> Preço: R$ {{ $c->real_price }} </span>
                         @endif
-                        @if ($curso->promotion == 0)
-                            <span class="preco"> Preço: R$ {{ $curso->promotion_price }} </span>
-                        @elseif($curso->promotion_price == 0)
+                        @if ($c->promotion == 0)
+                            <span class="preco"> Preço: R$ {{ $c->promotion_price }} </span>
+                        @elseif($c->promotion_price == 0)
                             <span class="preco"> Gratuito </span>
                         @else
                             <span class="preco" style="text-decoration: line-through;"> Preço: R$
-                                {{ $curso->real_price }}
+                                {{ $c->real_price }}
                             </span>
                             <div class="desconto">
-                                <span class="promocao"> Desconto de {{ $curso->promotion }}% </span>
-                                <span class="valorAtual"> Novo preço: R$ {{ $curso->promotion_price }} </span>
+                                <span class="promocao"> Desconto de {{ $c->promotion }}% </span>
+                                <span class="valorAtual"> Novo preço: R$ {{ $c->promotion_price }} </span>
                             </div>
                         @endif
                         <div class="div-btn">

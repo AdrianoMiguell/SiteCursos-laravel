@@ -10,18 +10,19 @@
     animation: textA 5s linear infinite;
 }
 
-#area-coments {
-    background-color: rgb(var(--sec-cor));
-    border-radius: 5px;
+.area_coments {
+    margin: 5em auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    padding: .5rem;
+    padding: 2rem;
 }
 
-#area-coments>blockquote {
+.area_coments>blockquote {
+    margin: auto;
+    max-width: 25em;
     text-align: center;
     font-size: large;
     color: rgb(var(--main-cor));
@@ -35,7 +36,7 @@
     background-color: rgba(var(--tert-cor), .75);
 }
 
-#initial_area {
+/* #initial_area {
     margin-top: 0;
     padding: 5em;
     color: rgb(var(--white-cor));
@@ -43,14 +44,7 @@
     flex-direction: column;
     justify-content: space-around;
     row-gap: 5em;
-}
-
-.tags {
-    border: 2px solid rgb(var(--sec-cor));
-    border-radius: .4em;
-    padding: 1em;
-    font-size: 12pt;
-}
+} */
 
 .search_div {
     height: 45em;
@@ -81,7 +75,7 @@
     align-items: center;
 }
 
-.search_input {
+#search_input {
     border-radius: 5px;
     border: 2px solid rgb(var(--main-cor));
     padding: 1px 5px;
@@ -97,19 +91,20 @@
     gap: 2em 1em;
 }
 
-.area-cursos {
+.area_cursos {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 5% 0;
 }
 
 .div_modulos {
     display: grid;
 }
 
-.area-cursos, .div_modulos {
-    gap: 1em;
+.area_cursos, .div_modulos {
+    gap: 1em 2em;
 }
 
 .div_modulos ul {
@@ -136,92 +131,55 @@
     width: 40em;
 }
 
-.area-cursos>div {
+.area_cursos>div {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-wrap: wrap;
     width: 80vw;
-    gap: 1em;
+    gap: 2.5em 5em;
 }
 
-.section_conteudo{
+/* .section_conteudo{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1em;
     padding: 1em;
     margin: 1em;
-}
+} */
 
 .curso {
-    padding: 1px;
-    width: 20vw;
     text-align: center;
     display: inline-grid;
-    border-radius: 5px;
-    padding: 0;
+    border-radius: 8px;
+    padding: 5px;
     width: 16em;
 }
 
-.img-curso {
+.img_curso {
     width: 100%;
     height: 10rem;
-    border-radius: 5px;
+    border-radius: 8px;
     margin-bottom: 1em;
+    background-color: rgba(var(--quat-cor), .6);
 }
 
-.nome-curso {
+.nome_curso {
     font-size: 14pt;
 }
 
-.descricao-curso {
+.desc_curso {
     font-size: 10pt;
     margin: .5em 0;
 }
 
-.informacoes {
-    display: grid;
-}
-
-.desconto {
-    display: grid;
-    column-gap: 5px;
-}
-
-.nome-curso,
-.preco,
-.valorAtual,
-.promocao {
-    color: rgb(var(--sec-cor));
-    font-weight: bold;
-}
-
 .div-btn {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 1rem;
     padding: .5rem;
-}
-
-.div-btn,
-.btn-curso {
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn-curso {
-    background-color: rgb(var(--main-cor));
-    padding: .5rem;
-    text-decoration: none;
-    color: white;
-    transition-duration: .5s;
-    border: none;
-}
-
-.btn-curso:hover {
-    background-color: rgba(var(--main-cor), .75);
-    transition-duration: .5s;
 }
 
 .view_cursos {
@@ -233,6 +191,7 @@
 }
 
 .view_cursos_content {
+    text-transform: capitalize;
     cursor: pointer;
     transition-duration: .5s;
     border-bottom: 2px solid transparent;
@@ -243,12 +202,10 @@
     color: rgb(var(--quat-cor));
     border-bottom-color: rgb(var(--quat-cor));
 }
-.borderLine {
+.borderLine{
     transition-duration: .5s;
-    color: rgb(var(--main-cor));
-    border-bottom-color: rgb(var(--main-cor));
+    border-bottom-color: rgb(var(--quint-cor));
 }
-
 .next_previous{
     display: flex;
     justify-content: space-between;
@@ -294,7 +251,7 @@
 }
 
 @media screen and (max-width: 900px) {
-    .area-cursos {
+    .area_cursos {
         margin: auto 0;
     }
 
@@ -302,8 +259,8 @@
         width: 14em;
     }
 
-    .descricao-curso {
-        font-size: 7.5pt;
+    .desc_curso {
+        font-size: 9pt;
     }
 
     .ulContent {
