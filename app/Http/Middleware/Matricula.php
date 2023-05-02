@@ -20,7 +20,7 @@ class Matricula
         $curso = Curso::where('id', $request->id)->get();
 
         if($curso[0]->price_promotion == 0) {
-            return redirect()->route('pagamento');
+            return redirect()->route('pay');
         }
 
         return $next($request);

@@ -74,7 +74,7 @@
         @endif
     </div>
 
-    {{-- <div class="search_div">
+    <div class="search_div">
         <div class="search_img">
             <img class="img_curso"
                 src="https://img.freepik.com/vetores-gratis/ilustracao-do-conceito-de-cerebro-de-curiosidade_114360-11037.jpg?w=740&t=st=1680082052~exp=1680082652~hmac=9b9faa6873395a0c748784a865d1efc252786238185aa60d053231a9ecefdfa3"
@@ -82,7 +82,7 @@
             <div><a href="https://br.freepik.com/vetores-gratis/ilustracao-do-conceito-de-cerebro-de-curiosidade_30576698.htm#query=brain&position=49&from_view=search&track=sph"
                     style="text-decoration: none;">Imagem de storyset</a> no Freepik</div>
         </div>
-        <form action="{{route('search');}}" method="post" class="search_form">
+        <form action="{{ route('index') }}" method="get" class="search_form">
             <input type="search" name="search" id="search_input" maxlength="25" size="30">
             <button type="submit" class="search_btn btnGeral">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -92,32 +92,24 @@
                 </svg>
             </button>
         </form>
-    </div> --}}
+    </div>
 
-    <section class="area_cursos section_gradient_dark light_text my-5">
+    <section id="allCursos" class="area_cursos section_gradient_dark light_text my-5">
         <h4 class="text-center fw-bolder fs-2 my-5">Cursos disponiveis</h4>
         <div>
             @if (isset($cursos))
                 @forelse ($cursos as $key => $curso)
-                    <div class="curso section_gradient_light light_text">
+                    <div class="curso section_gradient_light dark_text">
                         <img src="{{ asset('storage/' . $curso->img) }}" alt="" class="img_curso">
                         <span class="nome_curso"> {{ $curso->name }} </span>
                         <span class="desc_curso"> {{ $curso->desc }} </span>
-                        <span class="duracao_curso"> Duração : {{ $curso->duration }} </span>
-                        <span class="modulos_curso"> Modulos : {{ $curso->modulos }} </span>
-                        <div class="bege_text">
-                            @if ($curso->promotion == 0)
-                                <span class="preco"> Preço: R$ {{ $curso->promotion_price }} </span>
-                            @elseif($curso->promotion_price == 0)
-                                <span class="preco"> Gratuito </span>
+                        <span> Duração : {{ $curso->duration }} </span>
+                        <span> Modulos : {{ $curso->modulos }} </span>
+                        <div class="fw-bold">
+                            @if ($curso->promotion_price == 0)
+                                <span> Gratuito </span>
                             @else
-                                <span class="preco" style="text-decoration: line-through;"> Preço: R$
-                                    {{ $curso->real_price }}
-                                </span>
-                                <div class="desconto">
-                                    <span class="promocao"> Desconto de {{ $curso->promotion }}% </span>
-                                    <span class="valorAtual"> Novo preço: R$ {{ $curso->promotion_price }} </span>
-                                </div>
+                                <span> Preço: R$ {{ $curso->promotion_price }} </span>
                             @endif
                         </div>
                         <div class="div-btn">
@@ -136,8 +128,8 @@
                         <h1>Nenhum curso cadastrado</h1>
                     </div>
                 @endforelse
-                <div class="my-5">
-                    <a href="" class="btnGeral"> Outros cursos </a>
+                <div>
+                    {{ $cursos->links('vendor.pagination.bootstrap-4') }}
                 </div>
             @endif
         </div>

@@ -54,12 +54,46 @@
         </div>
     @endif
 
-    <section class="area-cursos mt-5 my-1">
-        @include('user.cursos-all')
+    <section class="area_cursos mt-5 my-1">
+        <div>
+            @forelse ($cursos as $key => $curso)
+                <div class="curso section_gradient_light dark_text">
+                    <img src="{{ asset('storage/' . $curso->img) }}" alt="" class="img_curso">
+                    <span class="nome_curso"> {{ $curso->name }} </span>
+                    <span class="desc_curso"> {{ $curso->desc }} </span>
+                    <span> Duração : {{ $curso->duration }} </span>
+                    <span> Modulos : {{ $curso->modulos }} </span>
+                    <div class="fw-bold">
+                        @if ($curso->promotion_price == 0)
+                            <span> Gratuito </span>
+                        @else
+                            <span> Preço: R$ {{ $curso->promotion_price }} </span>
+                        @endif
+                    </div>
+                    <div class="div-btn">
+                        <a class="btnGeral" href="{{ route('view.curso', ['curso_id' => $curso->id]) }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                <path
+                                    d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                            </svg>
+                            visualizar</a>
+                    </div>
+                </div>
+            @empty
+                <div class="alert alery-primary">
+                    <h1>Nenhum curso cadastrado</h1>
+                </div>
+            @endforelse
+            <div>
+                {{ $cursos->links('vendor.pagination.bootstrap-4') }}
+            </div>
+        </div>
     </section>
 
     @if (isset($matricula))
-        <section class="area-cursos mt-5 my-1">
+        <section class="area_cursos mt-5 my-1">
             @include('user.myCursos')
         </section>
 
@@ -67,7 +101,7 @@
         @foreach ($cursos as $key => $c)
             @foreach ($matricula as $m)
                 @if ($m->curso_id == $c->id && $m->status == 'concluido')
-                    <section class="area-cursos mt-5 my-1 gap-5">
+                    <section class="area_cursos mt-5 my-1 gap-5">
                         <div class="img_legend">
                             <img src="https://img.freepik.com/vetores-gratis/ilustracao-de-certificacao-iso-com-pessoas-e-bloco-de-notas_23-2148689291.jpg?w=740&t=st=1680278085~exp=1680278685~hmac=b60e87305dee46a75aa245d3c40c4e0fab4dc8b871701d01e79fd886bd16d439"
                                 alt="" width="350px">

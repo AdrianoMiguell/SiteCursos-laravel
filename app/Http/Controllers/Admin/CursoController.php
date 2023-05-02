@@ -13,7 +13,22 @@ use Illuminate\Support\Facades\Storage;
 
 class CursoController extends Controller
 {
-    public function view(Request $request)
+    public function cursos()
+    {
+        $cursos = Curso::all();
+        if (empty($cursos[0]->id) && Auth::user()->type == 1) {
+            return redirect()->route('view-create-curso');
+        }
+
+        if (isset(Auth::user()->id)) {
+            $matricula = Matricula::where('user_id', Auth::user()->id)->get();
+            return view('admin.view-cursos', compact('cursos', 'matricula'));
+        } else {
+            return view('admin.view-cursos', compact('cursos'));
+        }
+    }
+
+    public function view_create(Request $request)
     {
         if (!isset($request->curso_id)) {
             return view('admin.create-curso')
@@ -74,7 +89,6 @@ class CursoController extends Controller
             'modulos' => 'required',
             'real_price' => 'required',
             'promotion' => 'required',
-            'ready' => 'required|string',
         ]);
 
         if (!empty($request->img)) {
@@ -87,13 +101,16 @@ class CursoController extends Controller
 
         $ago_curso = Curso::findOrFail($id);
 
-        if ($request->modulos < $ago_curso->modulos) {
+        if ($request->modulos != $ago_curso->modulos) {
             $conteudos = Conteudo::where('curso_id', $id)->get();
             if ($conteudos->count() > $request->modulos) {
                 return back()
                     ->with('status', 'Você não pode mudar o número de modulos para um número menor. Exclua os conteúdos manualmente!');
+            } else{
+                $curso['ready'] = "no";
             }
         }
+
         if ($request->promotion != $ago_curso->promotion || $request->real_price != $ago_curso->real_price) {
             if ($request->promotion != 0) {
                 $curso['promotion_price'] = ($request->real_price) - ($request->real_price * $request->promotion) / 100;
@@ -121,51 +138,5 @@ class CursoController extends Controller
         $curso->delete();
 
         return back()->with('status', 'Deletado com sucesso!');
-    }
-
-    public function cursos()
-    {
-        $cursos = Curso::all();
-        if (empty($cursos[0]->id) && Auth::user()->type == 1) {
-            return redirect()->route('view-create-curso');
-        }
-
-        if (isset(Auth::user()->id)) {
-            $matricula = Matricula::where('user_id', Auth::user()->id)->get();
-            return view('admin.view-cursos', compact('cursos', 'matricula'));
-        } else {
-            return view('admin.view-cursos', compact('cursos'));
-        }
-    }
-
-    public function conteudos(Request $request)
-    {
-        if (!isset($request->id) || empty($request->id)) {
-            return redirect()->route('view.cursos');
-        }
-
-        $id = $request->id;
-        $curso = Curso::findOrFail($id);
-
-        if (!isset($curso->id)) {
-            return redirect()->route('view-create-curso')->with('status', 'Curso não existente!');
-        }
-
-        $conteudos = Conteudo::where('curso_id', $curso->id)->get();
-        $quests = Questionario::where('curso_id', $curso->id)->get();
-
-        $tot_modulos = $curso->modulos;
-
-        if (!isset($conteudos) || empty($conteudos[0]->id)) {
-            return redirect()->route('view-create-curso', ['curso_id' => $curso->id])
-                ->with('status', 'Conteudos do curso não foram criados!');
-                dd($tot_modulos);
-
-        } else if ($tot_modulos != $conteudos->count()) {
-            return redirect()->route('view-create-curso', ['curso_id' => $curso->id])
-                ->with('status', 'Conteudos do curso não estão concluidos!');
-        } else {
-            return view('admin.view-conteudo', compact('curso', 'conteudos', 'quests'));
-        }
     }
 }

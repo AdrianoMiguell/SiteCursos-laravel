@@ -61,7 +61,7 @@
     font-style: italic;
 }
 .link:hover{
-    font-weight: 600;
+    background-color: rgba(var(--black-cor), .2);
 }
 
 .light_border{

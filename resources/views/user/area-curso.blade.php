@@ -7,26 +7,28 @@
             <h4 class="text-center"> Curso </h4>
             <div style="width: auto;">
                 @if (isset($curso))
-                    <div class="curso section_gradient_dark text-light">
-                        <img src="{{ asset('storage/' . $curso->img) }}" alt="" class="img-curso">
-                        <span class="nome-curso"> {{ $curso->name }} </span>
-                        <span class="descricao-curso"> {{ $curso->desc }} </span>
-                        <div class="informacoes">
-                            <span class="duracao-curso"> Duração : {{ $curso->duration }} </span>
-                            <span class="modulos-curso"> Modulos : {{ $curso->modulos }} </span>
+                    <div class="curso section_gradient_dark light_text">
+                        <img src="{{ asset('storage/' . $curso->img) }}" alt="" class="img_curso">
+                        <span class="nome_curso"> {{ $curso->name }} </span>
+                        <span class="desc_curso"> {{ $curso->desc }} </span>
+                        <span> Duração : {{ $curso->duration }} </span>
+                        <span> Modulos : {{ $curso->modulos }} </span>
+                        <div class="bege_text">
+                            @if ($curso->promotion == 0)
+                                <span> Preço: R$ {{ $curso->promotion_price }} </span>
+                            @elseif($curso->promotion_price == 0)
+                                <span> Gratuito </span>
+                            @else
+                                <span style="text-decoration: line-through;"> Preço: R$
+                                    {{ $curso->real_price }}
+                                </span>
+                                <div>
+                                    <span> Desconto de {{ $curso->promotion }}% </span>
+                                    <br>
+                                    <span> Novo preço: R$ {{ $curso->promotion_price }} </span>
+                                </div>
+                            @endif
                         </div>
-                        @if ($curso->promotion != 0)
-                            <span class="preco" style="text-decoration: line-through;"> Preço: R$ {{ $curso->real_price }}
-                            </span>
-                            <div class="desconto">
-                                <span class="promocao"> Desconto de {{ $curso->promotion }}% </span>
-                                <span class="valorAtual"> Novo preço: R$ {{ $curso->promotion_price }} </span>
-                            </div>
-                        @elseif ($curso->real_price == 0)
-                            <span class="preco"> Gratuito </span>
-                        @else
-                            <span class="preco"> Preço: R$ {{ $curso->real_price }} </span>
-                        @endif
                         <div class="div-btn">
                             @if (isset($matricula) && $matricula[0]->curso_id == $curso->id)
                                 <a class="btnGeral"
@@ -80,6 +82,11 @@
             </ul>
         </div>
     </section>
+
+    <div class="w-75 mx-5 my-2 mb-5 dark_text">
+        <h4>Descrição</h4>
+        <p>{{$curso->desc_more ?? ''}}</p>
+    </div>
 
     <script>
         const liContent = document.querySelectorAll('.liContent');

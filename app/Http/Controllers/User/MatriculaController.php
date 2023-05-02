@@ -12,45 +12,10 @@ use Illuminate\Support\Facades\Auth;
 use \Mpdf\Mpdf as PDF;
 // use Mpdf\Mpdf;
 // use MpdfException;
-
 // use PDFBarcode;
 
 class MatriculaController extends Controller
 {
-
-    public function index()
-    {
-        $cursos = Curso::all();
-
-        // if (isset($cursos)) {
-        //     $qs = Questionario::all();
-        //     $cs = Conteudo::all();
-
-        //     // if (isset($qs) && isset($cs)) {
-        //     //     if (count($cs) != count($cursos) && count($qs) != count($cursos)) {
-        //     //         foreach ($cursos as $crs) {
-        //     //             foreach ($qs as $q) {
-        //     //                 foreach ($cs as $c) {
-
-        //     //                 }
-        //     //             }
-        //     //         }
-        //     //     }
-        //     // } else {
-        //     //     return view('index');
-        //     // }
-        // }
-
-        if (isset(Auth::user()->id)) {
-            $matricula = Matricula::where('user_id', Auth::user()->id)->get();
-            return view('index', compact('cursos', 'matricula'));
-        } else if (isset($cursos)) {
-            return view('index', compact('cursos'));
-        } else {
-            return view('index');
-        }
-    }
-
     public function matricula(Request $request)
     {
         if (!isset($request->curso_id)) {
@@ -66,14 +31,12 @@ class MatriculaController extends Controller
                 ['numbering', $matricExist[0]->modulo_atual],
             ])->get();
 
-            // dd($curso);
             return redirect()->route('user.conteudo', ['matricula_id' => $matricExist[0]->id, 'curso_id' => $curso[0]->id, 'conteudo_id' => $conteudo[0]->id])
                 ->with('status', 'Bem vindo de volta ao curso!');
         }
 
-
         if ($curso[0]->promotion_price != 0) {
-            return view('user.pagamento');
+            return redirect()->route('pay.curso');
         }
 
         $matricula = $request->except('_token');
@@ -85,81 +48,6 @@ class MatriculaController extends Controller
 
         return redirect()->route('user.conteudo', ['curso_id' => $curso[0]->id, 'conteudo_id' => $matricula->modulo_atual])
             ->with('status', 'Matricula realizada com sucesso!');
-    }
-
-    public function next_modulo(Request $request)
-    {
-
-        // Requisições : $matricula_id; $conteudo_id;
-        if (!isset($request->matricula_id) && !isset($request->conteudo_id)) {
-            return back()->with('status', 'Informações invalidas ou você não está matriculado!');
-        }
-
-        $matricula = Matricula::findOrFail($request->matricula_id);
-        $conteudo = Conteudo::findOrFail($request->conteudo_id);
-
-        if ($matricula->modulo_atual == $conteudo->numbering) {
-            $matricula->modulo_atual =   $matricula->modulo_atual + 1;
-            $conteudo = Conteudo::where([
-                ['curso_id', $matricula->curso_id],
-                ['numbering', $matricula->modulo_atual],
-            ])->get();
-
-            $matricula->save();
-
-            return redirect()->route('user.conteudo', ['curso_id' => $matricula->curso_id, 'conteudo_id' => $conteudo[0]->id])->with('status', 'Proximo modulo desbloquado! 🎉');
-        } else {
-            $next_cont = Conteudo::where([['numbering', ($conteudo->numbering + 1)], ['curso_id', $matricula->curso_id]])->get();
-
-            return redirect()->route('user.conteudo', ['curso_id' => $matricula->curso_id, 'conteudo_id' => $next_cont[0]->id]);
-        }
-    }
-
-    public function prev_modulo(Request $request)
-    {
-        if (isset($request->matricula_id) && isset($request->conteudo_id)) {
-            $cont_atual = Conteudo::findOrFail($request->conteudo_id);
-            $mat_atual = Matricula::findOrFail($request->matricula_id);
-            $conteudo = Conteudo::where([['numbering', ($cont_atual->numbering - 1)], ['curso_id', $mat_atual->curso_id]])->get();
-
-            return redirect()->route('user.conteudo', ['curso_id' => $mat_atual->curso_id, 'conteudo_id' => $conteudo[0]->id])->with('status', 'Video anterior');
-        } else {
-            return back()->with('errors', 'Informações invalidas ou você não está matriculado!');
-        }
-    }
-
-    public function pagamento()
-    {
-        return view('user.pagamento');
-    }
-
-    public function view_curso(Request $request)
-    {
-        // Requisições : curso_id; conteudo_id;
-        if (!isset($request->curso_id)) {
-            return redirect()->route('/')->with('errors', 'Curso não encontrado!');
-        }
-
-        $curso = Curso::find($request->curso_id);
-
-        if (empty(Auth::user()->id)) {
-            return view('user.area-curso', compact('curso'));
-        } else {
-            $matricula = Matricula::where([['curso_id', $request->curso_id], ['user_id', Auth::user()->id]])->get();
-        }
-
-        if (!empty($matricula[0]->id)) {
-            if (!isset($request->conteudo_id)) {
-                $conteudo_id = $curso->conteudos[$matricula[0]->modulo_atual]->id;
-            } else {
-                $conteudo_id = $request->conteudo_id;
-            }
-
-            return redirect()->route('user.conteudo', ['curso_id' => $curso->id, 'conteudo_id' => $conteudo_id])
-                ->with('status', 'Bom estudo!');
-        } else {
-            return view('user.area-curso', compact('curso'));
-        }
     }
 
     public function user_conteudo(Request $request)
@@ -191,13 +79,74 @@ class MatriculaController extends Controller
         }
     }
 
+    public function next_modulo(Request $request)
+    {
+        // Requisições : $matricula_id; $conteudo_id;
+        if (!isset($request->matricula_id) && !isset($request->conteudo_id)) {
+            return back()->with('status', 'Informações invalidas ou você não está matriculado!');
+        }
+
+
+        $matricula = Matricula::findOrFail($request->matricula_id);
+        $conteudo = Conteudo::findOrFail($request->conteudo_id);
+
+
+        if ($matricula->modulo_atual == $conteudo->numbering - 1) {
+            $matricula->modulo_atual = $matricula->modulo_atual + 1;
+            $conteudo = Conteudo::where([
+                ['curso_id', $matricula->curso_id],
+                ['numbering', $matricula->modulo_atual],
+            ])->get();
+
+            $matricula->save();
+            dd($matricula);
+
+            return redirect()->route('user.conteudo', ['curso_id' => $matricula->curso_id, 'conteudo_id' => $conteudo[0]->id])->with('status', 'Proximo modulo desbloquado! 🎉');
+        } else {
+            $next_cont = Conteudo::where([['numbering', ($conteudo->numbering)], ['curso_id', $matricula->curso_id]])->get();
+
+            return redirect()->route('user.conteudo', ['curso_id' => $matricula->curso_id, 'conteudo_id' => $next_cont[0]->id]);
+        }
+    }
+
+    public function prev_modulo(Request $request)
+    {
+        if (isset($request->matricula_id) && isset($request->conteudo_id)) {
+            $cont_atual = Conteudo::findOrFail($request->conteudo_id);
+            $mat_atual = Matricula::findOrFail($request->matricula_id);
+            $conteudo = Conteudo::where([['numbering', ($cont_atual->numbering - 1)], ['curso_id', $mat_atual->curso_id]])->get();
+
+            return redirect()->route('user.conteudo', ['curso_id' => $mat_atual->curso_id, 'conteudo_id' => $conteudo[0]->id])->with('status', 'Video anterior');
+        } else {
+            return back()->with('errors', 'Informações invalidas ou você não está matriculado!');
+        }
+    }
+
     public function questions_modulo(Request $request)
     {
+        if (!isset($request->curso_id)) {
+            return back()->with('status', 'Error!');
+        }
+
         $questions = Questionario::where('curso_id', $request->curso_id)->get();
+        $mat = Matricula::where([['user_id', Auth::user()->id], ['curso_id', $request->curso_id]])->get();
+        $curso = Curso::where('id', $request->curso_id)->get();
+
+        if (!isset($curso[0]->id) || $curso[0]->modulos != $mat[0]->modulo_atual + 1) {
+            return back()->with('status', 'Complete a atividade atual!');
+        }
 
         if (empty($questions[0]->id)) {
             // concluido sem prova
-            return redirect()->route('dashboard');
+            $matricula = Matricula::findOrFail($mat[0]->id);
+
+            if ($matricula->status != "concluido") {
+                $matricula->status = 'concluido';
+                $matricula->save();
+                return redirect()->route('dashboard')->with('status', "Parabéns, Curso concluido!");
+            }
+
+            return redirect()->route('dashboard')->with('status', "Parabéns, Curso concluido!");
         } else {
             // vai para a prova
             return view('user.questionario', compact('questions'));
@@ -206,17 +155,25 @@ class MatriculaController extends Controller
 
     public function finished_modulo(Request $request)
     {
+
+        // dd($request);
+
         if (!isset($request->resp[0])) {
             return back()->with('status', 'Error!');
         }
 
         $questions = Questionario::where('curso_id', $request->curso_id)->get();
-        $matricula = Matricula::where([['user_id', Auth::user()->id], ['curso_id', $request->curso_id]])->get();
-        $matricula = Matricula::findOrFail($matricula[0]->id);
+        $mat = Matricula::where([['user_id', Auth::user()->id], ['curso_id', $request->curso_id]])->get();
+        $matricula = Matricula::findOrFail($mat[0]->id);
+        $curso = Curso::where('id', $request->curso_id)->get();
+
+        dd($curso);
+
+        if (!isset($curso[0]) || $curso[0]->modulos != $matricula->modulos) {
+        }
 
         $pontuacao = 0;
         $pontos = (10 / count($questions));
-
 
         if (count($questions) == 1) {
             if ($questions[0]->respTrue == $request->resp[0]) {
@@ -228,34 +185,33 @@ class MatriculaController extends Controller
 
                     return redirect()->route('dashboard')->with('status', 'Parabéns! Você concluiu o curso!');
                 } else {
+                    return redirect()->route('dashboard')->with('status', 'Sua nota foi de ' . $pontuacao . ' pontos!');
+                }
+            } else {
+                return redirect()->route('questions.modulo', ['curso_id' => $request->curso_id])->with('status', 'Quase lá, tente novamente');
+            }
+        } else {
+            foreach ($questions as $key => $q) {
+                if ($q->respTrue == $request->resp[$key]) {
+                    $pontuacao += $pontos;
+                }
+            }
+
+            $pontuacao = (int) $pontuacao;
+
+            if ($pontuacao >= 6) {
+                if ($matricula->status != 'concluido') {
+                    $matricula->status = 'concluido';
+                    $matricula->save();
+
+                    return redirect()->route('dashboard')->with('status', 'Parabéns! Você concluiu o curso!');
+                } else {
                     return redirect()->route('dashboard')->with('status', 'Parabéns! Sua nota foi de ' . $pontuacao . ' pontos!');
                 }
             } else {
-                return back()->with('status', 'Quase lá, tente novamente');
+                return redirect()->route('questions.modulo', ['curso_id' => $request->curso_id])->with('status', 'Quase lá, tente novamente');
             }
         }
-
-
-        foreach ($questions as $key => $q) {
-            if ($q->respTrue == $request->resp[$key]) {
-                $pontuacao += $pontos;
-            }
-        }
-
-        $pontuacao = (int) $pontuacao;
-
-        if ($pontuacao >= 6) {
-            if ($matricula->status != 'concluido') {
-                $matricula->status = 'concluido';
-                $matricula->save();
-            } else {
-                return redirect()->route('dashboard')->with('status', 'Parabéns! Sua nota foi de ' . $pontuacao . ' pontos!');
-            }
-        } else {
-            return redirect()->route('dashboard')->with('status', 'Quase lá, tente novamente!');
-        }
-
-        return redirect()->route('dashboard')->with('status', 'Parabéns! Você concluiu o curso!');
     }
 
     public function view_certificados(Request $request)
@@ -266,13 +222,11 @@ class MatriculaController extends Controller
         return view('documents.view_certificados', compact('concluidos', 'cursos'));
     }
 
-    // public function certificado(Request $request)
-    // {
-    //     $pdf = new MpdfException();
+    public function certificado(Request $request)
+    {
+        $curso = Curso::findOrFail($request->curso_id);
+        $matricula = Matricula::findOrFail($request->matricula_id);
 
-
-    //     // $pdf = ::loadView('pdf.document');
-
-    //     // return $pdf->stream('document.pdf');
-    // }
+        return view('documents.certificado', compact('curso', 'matricula'));
+    }
 }

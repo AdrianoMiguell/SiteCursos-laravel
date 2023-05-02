@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    {{-- <link rel="stylesheet" href="/css/geral.css">
-    <link rel="stylesheet" href="/css/certificado.css"> --}}
+    {{-- <link rel="stylesheet" href="/css/geral.css"> --}}
+    <link rel="stylesheet" href="/css/certificado.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap');
+        /* @import url('https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
 
         * {
@@ -41,7 +41,7 @@
             left: 50;
             width: 500px;
             margin-top: -8em;
-            /* font-family: 'Ms Madi', cursive; */
+            font-family: 'Ms Madi', cursive;
         }
 
         .content {
@@ -52,9 +52,6 @@
             row-gap: 3em;
         }
 
-        /* .content .title{
-
-} */
         .content .text {
             width: 400px;
             font-size: 13pt;
@@ -73,9 +70,6 @@
             word-wrap: break-word;
         }
 
-        /* #header_certificado {
-            transform: translateY(-5em);
-        } */
 
         #logo_div {
             display: flex;
@@ -118,15 +112,13 @@
         #footer #content_prog #caps {
             text-align: justify;
             list-style: none;
-            /* width: 80px; */
         }
 
         #alert_end {
             transform: translateY(4em);
-            /* margin-top: 2em; */
             text-align: center;
             font-size: 9pt;
-        }
+        } */
     </style>
 </head>
 

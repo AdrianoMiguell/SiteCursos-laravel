@@ -38,6 +38,10 @@ class ConteudoController extends Controller
                 $conteudo['curso_id'] = $id;
 
                 Conteudo::create($conteudo);
+
+                $curso = Curso::find($curso[0]->id);
+                $curso->ready = "ok";
+                $curso->save();
             }
 
 
@@ -70,5 +74,35 @@ class ConteudoController extends Controller
         $conteudo->delete();
 
         return back()->with('status', 'Deletado com sucesso!');
+    }
+
+    public function conteudos(Request $request)
+    {
+        if (!isset($request->id) || empty($request->id)) {
+            return redirect()->route('view.cursos');
+        }
+
+        $id = $request->id;
+        $curso = Curso::findOrFail($id);
+
+        if (!isset($curso->id)) {
+            return redirect()->route('view-create-curso')->with('status', 'Curso não existente!');
+        }
+
+        $conteudos = Conteudo::where('curso_id', $curso->id)->get();
+        $quests = Questionario::where('curso_id', $curso->id)->get();
+
+        $tot_modulos = $curso->modulos;
+
+        if (!isset($conteudos) || empty($conteudos[0]->id)) {
+            return redirect()->route('view-create-curso', ['curso_id' => $curso->id])
+                ->with('status', 'Conteudos do curso não foram criados!');
+            dd($tot_modulos);
+        } else if ($tot_modulos != $conteudos->count()) {
+            return redirect()->route('view-create-curso', ['curso_id' => $curso->id])
+                ->with('status', 'Conteudos do curso não estão concluidos!');
+        } else {
+            return view('admin.view-conteudo', compact('curso', 'conteudos', 'quests'));
+        }
     }
 }

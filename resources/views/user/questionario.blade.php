@@ -62,16 +62,22 @@
         }
 
         const contador = document.getElementById('contador');
+        var time = Math.round({{count($questions)}} * 1.5);
+        var nTime = time;
 
         if (typeof contador != undefined) {
-            var time = 30;
             contador.innerHTML = 'Time : ' + time + ' minutos';
 
-            setInterval(() => {
+            const lop = setInterval(() => {
                 time -= 1
                 contador.innerHTML = 'Time : ' + time + ' minutos';
 
+                if (time < 10) {
+                    contador.style.color = '#faa';
+                }
                 if (time == 0) {
+                    time = nTime;
+                    clearInterval(lop);
                     window.location.reload(true);
                 }
             }, 60000);
