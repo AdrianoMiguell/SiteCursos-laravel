@@ -1,0 +1,74 @@
+body {
+    background-color: rgb(var(--main-c));
+    color: rgb(var(--light-c));
+}
+
+.header-welcome {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+.div-welcome {
+}
+.div-welcome h2 {
+    font-weight: 800;
+    font-size: 32pt;
+}
+.background-video-message {
+    position: relative;
+    width: 100vw;
+    min-height: 120vh;
+    height: 100%;
+    margin-bottom: 0.5rem;
+    z-index: 0;
+}
+.background-video-message .video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    filter: opacity(0.25) grayscale(0.1);
+    z-index: 0;
+}
+
+.background-video-message .section-message {
+    position: relative;
+    z-index: 2;
+}
+
+.background-video-message .div-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 1.5em;
+    translate: 0 -20em;
+}
+.background-video-message .div-message span {
+    font-size: 20pt;
+}
+.background-video-message .div-message .message-cards {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+    padding: 0 2em;
+    gap: 2em;
+}
+.background-video-message .div-message .message-cards .card {
+    width: 25rem;
+    min-height: 90px;
+    background: rgba(var(--main-c), 0.1);
+    backdrop-filter: blur(0.25rem);
+}
+.background-video-message .div-message .message-cards .card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+}

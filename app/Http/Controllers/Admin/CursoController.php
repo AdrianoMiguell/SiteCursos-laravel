@@ -22,9 +22,9 @@ class CursoController extends Controller
 
         if (isset(Auth::user()->id)) {
             $matricula = Matricula::where('user_id', Auth::user()->id)->get();
-            return view('admin.view-cursos', compact('cursos', 'matricula'));
+            return view('admin.workspace', compact('cursos', 'matricula'));
         } else {
-            return view('admin.view-cursos', compact('cursos'));
+            return view('admin.workspace', compact('cursos'));
         }
     }
 
@@ -56,23 +56,30 @@ class CursoController extends Controller
             'name' => 'required|string',
             'img' => 'required|image|max: 10000',
             'desc' => 'required|string',
-            'desc_more' => 'required|string',
+            'desc_more' => 'nullable|string',
             'duration' => 'required|integer',
-            'modulos' => 'required|integer',
             'real_price' => 'required',
-            'promotion' => 'required|integer',
         ], [
             'img.max' => 'A imagem é muito grande!',
         ]);
 
-        $curso = $request->except('_token');
+        $curso = $request->except('token');
+        
         $curso['img'] = $request->img->store('images');
-        $curso['promotion_price'] = ($curso['real_price']) - ($curso['real_price'] * $curso['promotion']) / 100;
-        $curso['ready'] = "no";
 
+        if(empty($curso['desc_more'])) {
+            $curso['desc_more'] = $curso['desc'];
+        }
+        $curso['promotion'] = 0;
+        $curso['promotion'] = 0;
+        $curso['promotion_price'] = $curso['real_price'];
+        // $curso['promotion_price'] = ($curso['real_price']) - ($curso['real_price'] * $curso['promotion']) / 100;
+        $curso['modulos'] = 0;
+        $curso['ready'] = "no";
+        
         $curso = Curso::create($curso);
 
-        return redirect()->route('view-create-curso', compact('curso'))
+        return redirect()->route('view.create.curso', compact('curso'))
             ->with('status', 'Curso criado com sucesso!');
     }
 

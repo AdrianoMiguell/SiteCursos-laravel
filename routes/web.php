@@ -1,26 +1,28 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CursoController;
 use App\Http\Controllers\Admin\ConteudoController;
 use App\Http\Controllers\Admin\QuestionarioController;
 use App\Http\Controllers\User\MatriculaController;
 use App\Http\Controllers\User\payController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::controller(ProfileController::class)->group(function () {
+
+Route::controller(UserController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('curso', 'view_curso')->name('view.curso');
-    Route::get('search', 'search')->name('search');
+    Route::get('/dashboard', 'dashboard')->middleware('verified', 'auth')->name('dashboard');
 });
 
 Route::middleware('auth')->group(function () {
 
     Route::controller(ProfileController::class)->group(function () {
-        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::get('/profile', 'view')->name('profile.view');
         Route::patch('/profile', 'update')->name('profile.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
-        Route::get('/dashboard', 'dashboard')->middleware('verified')->name('dashboard');
     });
 
     Route::controller(MatriculaController::class)->group(function () {
@@ -35,13 +37,18 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('admin')->group(function () {
-        Route::get('view-create-curso', function () {
-            return view('admin.create-curso');
-        })->name('view-create-curso');
+
+        Route::controller(AdminController::class)->group(function () {
+            Route::get('workspace', 'workspace')->name('workspace');
+            Route::get('curso-workspace', 'cursoworkspace')->name('curso.workspace');
+        });
+
+        // Route::get('view-create-curso', function () {
+        //     return view('admin.create-curso');
+        // })->name('view-create-curso');
 
         Route::controller(CursoController::class)->group(function () {
             Route::get('view-cursos', 'cursos')->name('view.cursos');
-            Route::post('view-create-curso', 'view_create')->name('view-create-curso');
             Route::post('create-curso', 'create')->name('create.curso');
             Route::post('edit-curso', 'edit')->name('edit.curso');
             Route::delete('delete_curso/{id}', 'delete')->name('delete.curso');

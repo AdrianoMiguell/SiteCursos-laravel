@@ -42,10 +42,6 @@
         <input class="form-control" type="number" min="1" max="3600" id="duration-curso" name="duration"
             value="{{ $curso[0]->duration ?? '' }}" placeholder="Ex: 40 (horas)">
 
-        <label for="qtd-modulos">Quantidade de modulos</label>
-        <input class="form-control" type="number" id="qtd-modulos" name="modulos" min="0" max="40"
-            value="{{ $curso[0]->modulos ?? '' }}" placeholder="Ex: 20 modulos">
-
         <label for="real_price">Preço</label>
         <input class="form-control" type="number" id="real_price" name="real_price" min="0"
             value="{{ $curso[0]->real_price ?? '' }}" placeholder="Ex: 20 modulos">

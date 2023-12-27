@@ -36,7 +36,7 @@
         {{-- visão do usuario, criar curso, ver cursos,  --}}
         @if (Route::has('login') && Auth::user()->type == '1')
             <div id="content">
-                <a class="btnGeral" href="{{ route('view.cursos') }}">
+                {{-- <a class="btnGeral" href="{{ route('view.cursos') }}">
                     <img src="{{ asset('storage/icons/eye.svg') }}" alt="visualize" class="mx-1" width="18"
                         height="18">
                     Cursos
@@ -44,7 +44,7 @@
                 <a class="btnGeral" href="{{ route('view-create-curso') }}">
                     <img src="{{ asset('storage/icons/plus-circle.svg') }}" alt="visualize" class="mx-1">
                     Curso
-                </a>
+                </a> --}}
             </div>
         @else
         @endif
@@ -55,7 +55,7 @@
         @if (Route::has('login') && isset(Auth::user()->id))
             @if (Auth::user()->type == 1)
                 <a class="btnGeral d-flex align-items-center gap-2" style="font-size: 10pt;"
-                    href="{{ route('profile.edit') }}">
+                    href="{{ route('profile.view') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                         class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -75,9 +75,8 @@
                     {{ Auth::user()->name }}
                 </button>
                 <div id="divPerfil" class="d-grid gap-2 m-0 p-2 section_gradient_dark">
-                    <a href="{{ route('profile.edit') }}"> perfil </a>
+                    <a href="{{ route('profile.view') }}"> perfil </a>
                     <a href="{{ route('dashboard') }}"> meus cursos </a>
-                    <a href="{{ route('profile.edit') }}"> sobre nós </a>
                 </div>
             @endif
         @else
