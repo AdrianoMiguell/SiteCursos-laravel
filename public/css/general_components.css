@@ -10,30 +10,33 @@
 }
 
 .btnGeral-dark {
+    opacity: .9;
     background-color: rgba(var(--main-c));
     box-shadow: 0 0 1px 1px rgb(var(--sec-c));
-    color: rgb(var(--white-c));
+    color: rgb(var(--light-c));
 }
 .btnGeral-dark:hover,
 .btnGeral-dark:active,
 .btnGeral-dark:focus,
 .btnGeral-dark:focus-visible {
+    opacity: 1;
     color: rgb(var(--quat-c));
     box-shadow: 0 0 1px 1px rgb(var(--quat-c));
 }
 
 .btnGeral-light {
+    opacity: .9;
     background-color: rgb(var(--quat-c));
-    color: rgb(var(--sec-c));
+    color: rgb(var(--main-c));
     box-shadow: 0 0 1px 1px rgb(var(--main-c));
 }
 .btnGeral-light:hover,
 .btnGeral-light:active,
 .btnGeral-light:focus,
 .btnGeral-light:focus-visible {
-    background-color: rgba(var(--quat-c));
+    opacity: 1;
     box-shadow: 0 0 1px 1px rgb(var(--sec-c));
-    color: rgb(var(--sec-c));
+    color: rgb(var(--tert-c));
 }
 
 .section_gradient_dark {
@@ -103,4 +106,9 @@
 
 .conteudo_link {
     margin: 0 1em;
+}
+
+.title {
+    font-weight: 600;
+    color: rgb(var(--tert-c));
 }

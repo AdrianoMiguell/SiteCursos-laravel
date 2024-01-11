@@ -1,0 +1,194 @@
+/* workspace */
+.container {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    display: grid;
+    gap: 1rem;
+}
+.workspace .sec-cursos {
+    max-width: 95%;
+    padding: 1rem 0.5rem;
+    overflow-x: auto;
+}
+.sec-cursos::-webkit-scrollbar {
+    height: 10px;
+    background: rgba(var(--main-c), 0.1);
+}
+.sec-cursos::-webkit-scrollbar-thumb {
+    background: rgba(var(--tert-c), 0.5);
+    border-radius: 15px;
+}
+.sec-cursos .table .curso .img-curso img {
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+}
+.sec-cursos .table .curso .div-actions {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* workspace-curso */
+.workspace-curso .info-curso {
+    display: grid;
+    gap: 2rem 0.5rem;
+}
+.info-curso .name {
+    font-size: 25pt;
+}
+.info-curso .desc {
+    font-size: 14pt;
+}
+.info-curso .div-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem 0.5rem;
+}
+.info-curso .div-info div {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.info-curso .div-info .name {
+    font-size: 20pt;
+}
+.info-curso .div-img {
+    min-width: 300px;
+    max-width: 600px;
+}
+.info-curso .div-img img {
+    width: 100%;
+    height: auto;
+}
+
+/* Workspace-conteudo e Workspace-quiz */
+.workspace-conteudo .sec-curso-reference,
+.workspace-quiz .sec-modulo-reference {
+    display: grid;
+    gap: 1rem;
+}
+.sec-modulo-reference .div-modulo-reference,
+.sec-curso-reference .div-curso-reference {
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.1rem;
+    background-color: rgb(var(--main-c));
+}
+.sec-modulo-reference .div-modulo-reference .modulo-reference,
+.sec-curso-reference .div-curso-reference .curso-reference {
+    padding: 0;
+}
+.sec-modulo-reference .div-modulo-reference .modulo-reference .modulo-link,
+.sec-curso-reference .div-curso-reference .curso-reference .curso-link {
+    display: block;
+    text-decoration: none;
+    padding: 1rem;
+    background-color: rgba(var(--tert-c), 0.15);
+    color: rgb(var(--quat-c));
+    cursor: pointer;
+    transition: 0.25s;
+}
+.div-curso-reference .curso-reference .curso-link:hover,
+.div-curso-reference .curso-reference .curso-link:active,
+.div-curso-reference .curso-reference .curso-link:focus,
+.div-curso-reference .curso-reference .curso-link:focus-visible,
+.div-modulo-reference .modulo-reference .modulo-link:hover,
+.div-modulo-reference .modulo-reference .modulo-link:active,
+.div-modulo-reference .modulo-reference .modulo-link:focus,
+.div-modulo-reference .modulo-reference .modulo-link:focus-visible {
+    background-color: rgba(var(--tert-c), 0.75) !important;
+    color: rgb(var(--sec-c)) !important;
+}
+
+.workspace-conteudo .choose-type .type-conteudo {
+    position: relative;
+}
+
+.choose-type .type-conteudo .input-type {
+    display: none;
+}
+
+.choose-type .type-conteudo .label-type {
+    text-decoration: none;
+    text-align: center;
+    padding: 2rem;
+    min-width: 150px;
+    min-height: 40px;
+    color: rgb(var(--quat-c));
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.choose-type .type-conteudo .input-type:checked ~ .label-type,
+.choose-type .type-conteudo .label-type:hover,
+.choose-type .type-conteudo .label-type:active,
+.choose-type .type-conteudo .label-type:focus,
+.choose-type .type-conteudo .label-type:focus-visible {
+    color: rgb(var(--sec-c));
+    background-color: rgb(var(--tert-c), 0.5);
+    text-shadow: 0 0 5px rgb(var(--light-c), 0.5);
+}
+
+.choose-type .div-type-conteudo {
+    min-width: 80vw;
+    flex-direction: column;
+    display: none;
+    flex-grow: 1;
+    background-color: rgb(var(--light-c));
+    padding: 1rem;
+    margin: 0.5rem;
+}
+
+.choose-type .div-type-conteudo:first-child {
+    display: flex;
+}
+
+.sec-info-curso {
+    display: grid;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.sec-info-curso .div-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2rem;
+}
+
+.sec-info-curso .div-info .div-img img {
+    width: 250px;
+    border-radius: 15px;
+}
+
+.sec-info-curso .div-info .info {
+    display: grid;
+    gap: 0.5rem;
+}
+.sec-info-curso .div-info .info .desc {
+    text-indent: 1rem;
+}
+
+.sec-conteudos .modal-conteudo,
+.sec-quiz .modal-conteudo {
+    --bs-modal-width: auto;
+    --bs-modal-padding: 1rem 15vw;
+    --bs-modal-margin: 20vh 0 0 0;
+    --bs-modal-header-padding: 1rem 1.5rem;
+    --bs-modal-header-border-color: rgba(var(--main-c), 0.05);
+    overflow: hidden;
+}
+.sec-conteudos .modal-conteudo .modal-dialog,
+.sec-conteudos .modal-conteudo .modal-dialog .modal-content,
+.sec-quiz .modal-conteudo .modal-dialog,
+.sec-quiz .modal-conteudo .modal-dialog .modal-content {
+    height: 80vh;
+}

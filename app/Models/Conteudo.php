@@ -10,15 +10,35 @@ class Conteudo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'text',
-        'link',
-        'numbering',
+        'type',
+        'order',
+        'apostila_id',
+        'video_id',
+        'slide_id',
+        'desafio_id',
+        'modulo_id',
         'curso_id'
     ];
 
-    public function curso()
+    public function modulo()
     {
-        return $this->belongsTo(Curso::class);
+        return $this->belongsTo(Modulo::class);
+    }
+
+    public function apostila()
+    {
+        return $this->belongsTo(Apostila::class);
+    }
+    public function desafio()
+    {
+        return $this->belongsTo(Desafio::class);
+    }
+    public function slide()
+    {
+        return $this->belongsTo(Slide::class);
+    }
+    public function video()
+    {
+        return $this->belongsTo(Video::class);
     }
 }

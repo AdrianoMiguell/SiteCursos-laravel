@@ -22,10 +22,7 @@
         <link rel="stylesheet" href="/css/auth.css">
     @endif
 
-    @hasSection('welcome')
-        <link rel="stylesheet" href="/css/index.css">
-        <link rel="stylesheet" href="/css/user.css">
-    @endif
+    @yield('links')
 
 </head>
 
@@ -38,7 +35,7 @@
                     <x-application-logo class="w-25 h-25" style="margin: 1rem auto;" />
                 </a>
             </div>
-            <div class="w-100 d-flex flex-column justify-content-center align-items-center py-5" style="background-color: rgba(var(--tert-cor), .25);">
+            <div class="w-100 d-flex flex-column justify-content-center align-items-center py-5" style="background-color: rgba(var(--tert-c), .1);">
                 {{ $slot }}
             </div>
         </div>

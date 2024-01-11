@@ -18,38 +18,22 @@ class AdminController extends Controller
             return redirect()->route('dashboard');
         }
 
-        $cursos = Curso::orderBy('name', 'asc')->paginate(15);
+        $cursos = Curso::orderBy('name', 'asc')->get();
 
         return view('admin.workspace', compact('cursos'));
     }
 
-    public function view_curso(Request $request)
+    public function workspace_curso(Request $request)
     {
         if (!isset($request->curso_id)) {
-            return redirect()->route('/')->with('errors', 'Curso não encontrado!');
+            return redirect()->route('workspace')->with('errors', 'Curso não encontrado!');
         }
 
-        $curso = Curso::find($request->curso_id);
-
-        if (empty(Auth::user()->id)) {
-            return view('user.area-curso', compact('curso'));
-        } else {
-            $matricula = Matricula::where([['curso_id', $request->curso_id], ['user_id', Auth::user()->id]])->get();
-        }
-
-        if (!empty($matricula[0]->id)) {
-            if (!isset($request->conteudo_id)) {
-                $conteudo_id = $curso->conteudos[$matricula[0]->modulo_atual]->id;
-            } else {
-                $conteudo_id = $request->conteudo_id;
-            }
-
-            return redirect()->route('user.conteudo', ['curso_id' => $curso->id, 'conteudo_id' => $conteudo_id])
-                ->with('status', 'Bom estudo!');
-        } else {
-            return view('user.area-curso', compact('curso'));
-        }
+        $curso = Curso::findOrFail($request->curso_id);
+        
+        return view('admin.workspace-curso', compact('curso'));
     }
+
 
     // public function search(Request $request)
     // {

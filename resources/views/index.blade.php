@@ -1,4 +1,11 @@
+{{-- @dd($cursos[0]->user->name) --}}
+
 @extends('layouts.guest')
+
+@section('links')
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/user.css">
+@endsection
 
 @section('welcome')
     <section class="header-welcome m-0 p-5">
@@ -99,39 +106,38 @@
         <div class="div-cursos">
             @if (isset($cursos))
                 @forelse ($cursos as $key => $curso)
-                    <div class="curso">
-                        <div class="img-curso">
-                            <img src="{{ asset('storage/' . $curso->img) }}" alt="">
-                        </div>
-                        <div class="info-curso">
-                            <span class="name"> {{ $curso->name }} </span>
-                            <span class="desc"> {{ $curso->desc }} </span>
-                            <div class="d-flex justify-content-between">
-                                <span> Duração : {{ $curso->duration }} </span>
-                                <span> Modulos : {{ $curso->modulos }} </span>
+                    <a class="text-decoration-none" href="{{ route('view.curso', ['curso_id' => $curso->id]) }}">
+
+                        <div class="curso">
+                            <div class="img-curso">
+                                <img src="{{ asset('storage/' . $curso->img) }}" alt="">
                             </div>
-                            <div class="info-price">
+                            <div class="info-curso">
+                                <span class="name"> {{ $curso->name }} </span>
+                                <span class="desc"> {{ $curso->desc }} </span>
+                                <span class="creator"> {{ $curso->user->name }} </span>
+                                <div class="d-flex justify-content-between">
+                                    <span> Duração : {{ $curso->duration }} </span>
+                                </div>
                                 @if ($curso->promotion_price == 0)
                                     <span class="price"> Gratuito </span>
                                 @else
                                     <span class="price"> Preço: R$ {{ $curso->promotion_price }} </span>
                                 @endif
-                                {{-- <a class="btnGeral" href="{{ route('view.curso', ['curso_id' => $curso->id]) }}">
-                                    <i class="bi bi-eye-fill"></i>
-                                    visualizar</a> --}}
                             </div>
                         </div>
-                    </div>
+                    </a>
                 @empty
                     <div class="message">
-                        <span class="text-center">Nenhum curso cadastrado ainda. <br> Fique ligado pois em breve os cursos
+                        <span class="text-center">Nenhum curso cadastrado ainda. <br> Fique ligado pois em breve os
+                            cursos
                             serão abertos!</span>
                     </div>
                 @endforelse
             @endif
         </div>
         <div>
-            <a href="/" class="btn btn-primary">
+            <a href="{{ route('user.view_cursos') }}" class="btnGeral btnGeral-dark">
                 Ver mais
             </a>
         </div>

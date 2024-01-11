@@ -2,6 +2,7 @@
     {{ $admin = true }}
     {{print($admin);}}
 @endif --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -22,7 +23,8 @@
     <link rel="stylesheet" href="/css/geral.css">
 
     @if (Auth::user()->type == 1)
-        <link rel="stylesheet" href="/css/admin.css">
+        <link rel="stylesheet" href="/css/admin/admin_geral.css">
+        <link rel="stylesheet" href="/css/admin/workspaces.css">
     @else
         <link rel="stylesheet" href="/css/user.css">
     @endif
@@ -41,8 +43,15 @@
     </main>
 
     <x-auth-session-status class="position-fixed alert alert-primary bottom-0 end-0 m-2" :status="session('status')" />
-    <x-input-error :messages="$errors->get('email')" class="position-fixed alert alert-primary bottom-0 end-0 m-2" />
-        
+
+    @if ($errors->any())
+        <div class="alert alert-danger position-fixed end-0 bottom-0 m-2">
+            @foreach ($errors->all() as $error)
+                <span>{{ $error }}</span>
+            @endforeach
+        </div>
+    @endif
+
     @include('layouts.footer')
 </body>
 

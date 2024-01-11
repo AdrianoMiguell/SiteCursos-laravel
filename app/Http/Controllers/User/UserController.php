@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Curso;
 use App\Models\Matricula;
@@ -11,7 +12,7 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    
+
     public function index(Request $request)
     {
         if (isset($request->search)) {
@@ -20,9 +21,9 @@ class UserController extends Controller
             ], [
                 'search.size' => "Muitas palavras, reduza a pesquisa;"
             ]);
-            $cursos = Curso::where([['name', 'LIKE', '%".$request->search."%'], ['ready', 'ok']])->orderBy('name', 'asc')->limit(10)->get();
+            $cursos = Curso::where([['name', 'LIKE', '%".$request->search."%'], ['visible', true]])->orderBy('name', 'asc')->limit(10)->get();
         } else {
-            $cursos = Curso::where('ready', 'ok')->orderBy('name', 'asc')->limit(10)->get();
+            $cursos = Curso::join('categories', 'category_id', '=', 'categories.id')->where('visible', true)->orderBy('categories.amount', 'asc')->orderBy('cursos.name', 'asc')->limit(10)->get();
         }
 
         if (isset(Auth::user()->id)) {
@@ -31,6 +32,46 @@ class UserController extends Controller
         }
 
         return view('index', compact('cursos'));
+    }
+
+    public function view_cursos(Request $request)
+    {
+        $search = '';
+
+        if (isset($request->search) && !isset($request->category_id)) {
+            $request->validate([
+                'search' => 'nullable|string|max:50'
+            ], [
+                'search.max' => "Muitas palavras, reduza a pesquisa;"
+            ]);
+
+            $search = $request->search;
+
+            $cursos = Curso::join('categories', 'category_id', '=', 'categories.id')->where(function ($query) use ($search) {
+                $query->where('cursos.name', 'like', '%' . $search . '%')
+                    ->orWhere('categories.name', 'like', '%' . $search . '%')
+                    ->orWhere('cursos.desc', 'like', '%' . $search . '%');
+            })
+                ->where('cursos.visible', true)->orderBy('categories.amount', 'desc')->orderBy('cursos.name', 'asc')->paginate(20);
+
+            // dd($cursos);
+            // $cursos = Curso::join('categories', 'category_id', '=', 'categories.id')->where('cursos.name', 'like', '%' . $search . '%')->orWhere('categories.name', 'like', '%' . $search . '%')->orWhere('cursos.desc', 'like', '%' . $search . '%')->where('cursos.visible', true)->orderBy('categories.amount', 'desc')->orderBy('cursos.name', 'asc')->paginate(20);
+
+        } else if (isset($request->category_id)) {
+            $cursos = Curso::where('category_id', $request->category_id)->orderBy('name', 'asc')->paginate(20);
+        } else {
+            $cursos = Curso::join('categories', 'category_id', '=', 'categories.id')->where('visible', true)->orderBy('categories.amount', 'asc')->orderBy('cursos.name', 'asc')->paginate(20);
+        }
+
+        $populares_categories = Category::orderBy('amount', 'desc')->orderBy('name', 'asc')->limit(5)->get();
+        $categories = Category::orderBy('name', 'asc')->limit(10)->get();
+
+        if (isset(Auth::user()->id)) {
+            $matricula = Matricula::where('user_id', Auth::user()->id)->get();
+            return view('user.cursos', compact('cursos', 'populares_categories', 'categories', 'matricula', 'search'));
+        }
+
+        return view('user.cursos', compact('cursos', 'populares_categories', 'categories', 'search'));
     }
 
     /**
@@ -44,7 +85,7 @@ class UserController extends Controller
 
         $matricula = Matricula::where('user_id', Auth::user()->id)->get();
 
-        $cursos = Curso::orderBy('name', 'asc')->paginate(15);
+        $cursos = Curso::where('visible', true)->orderBy('name', 'asc')->paginate(15);
 
         if (!isset($matricula[0]->id)) {
             return view('user.dashboard', compact('cursos'));
@@ -52,7 +93,7 @@ class UserController extends Controller
 
         return view('user.dashboard', compact('matricula', 'cursos'));
     }
-    
+
     public function view_curso(Request $request)
     {
         if (!isset($request->curso_id)) {

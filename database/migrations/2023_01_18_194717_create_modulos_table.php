@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('conteudos', function (Blueprint $table) {
+        Schema::create('modulos', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('img')->nullable();
-            $table->string('text', 2500);
-            $table->string('link')->nullable();
-            $table->smallInteger('numbering');
+            $table->string('title', 150);
+            $table->string('desc', 1500)->nullable();
+            $table->smallInteger('order');
             $table->foreignId('curso_id')
                 ->constrained()
                 ->onUpdate('cascade')
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conteudos');
+        Schema::dropIfExists('modulos');
     }
 };

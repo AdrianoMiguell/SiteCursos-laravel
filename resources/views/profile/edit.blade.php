@@ -30,7 +30,7 @@
                         <a :href="route('logout')"
                             onclick="event.preventDefault();
                                             this.closest('form').submit();"
-                            class="btnGeral">
+                            class="btnGeral btnGeral-dark">
                             {{ __('Log Out') }}
                         </a>
                     </form>

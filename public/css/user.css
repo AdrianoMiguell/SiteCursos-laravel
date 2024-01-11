@@ -138,9 +138,24 @@
     width: 100%;
     padding: 2.5em;
 }
-.curso {
-    width: 290px;
+.div-cursos .curso::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 340px;
+    height: 100%;
+    background-color: rgb(var(--main-c));
+    border-radius: 5px;
+    z-index: -1;
+}
+.div-cursos .curso {
+    position: relative;
+    width: 340px;
     height: auto;
+    min-height: 375px;
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -148,12 +163,12 @@
     margin: 1rem;
     border-radius: 5px;
     background-image: linear-gradient(
-            152deg,
-            rgba(var(--main-c), 0.25) 40%,
-            rgba(var(--tert-c), 0.25) 100%
-        );
+        152deg,
+        rgba(var(--main-c), 0.25) 40%,
+        rgba(var(--tert-c), 0.25) 100%
+    );
 }
-.curso .img-curso img {
+.div-cursos .curso .img-curso img {
     position: relative;
     width: 100%;
     height: auto;
@@ -161,23 +176,112 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-.curso .info-curso {
+.div-cursos .curso .info-curso {
     padding: 1rem 1.5rem;
     display: grid;
+    color: rgb(var(--light-c));
     gap: 5px;
 }
-.curso .info-curso .name {
+.div-cursos .curso .info-curso .name {
     font-size: larger;
     font-weight: bold;
 }
-.curso .info-curso .desc {
+.div-cursos .curso .info-curso .desc {
     font-size: small;
 }
-.curso .info-curso .info-price {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.div-cursos .curso .info-curso .creator {
+    font-size: small;
+    color: rgba(var(--light-c), 0.75);
 }
-.curso .info-curso .info-price .price {
+.div-cursos .curso .info-curso .price {
     color: rgb(var(--sec-c));
+}
+
+.user-header-options {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1rem;
+    background-color: rgba(var(--main-c), 0.95);
+}
+
+.user-header-options .options-items {
+    display: flex;
+    justify-content: end;
+    flex-wrap: wrap;
+    gap: .25rem;
+    padding: 1rem;
+}
+
+.user-header-options .options-items .dropdown .btn-dropdown {
+    text-decoration: none;
+    background-color: transparent;
+    padding: .75rem 1.25rem;
+    font-size: 11pt;
+    color: rgb(var(--sec-c));
+    opacity: 0.9;
+}
+
+.user-header-options .options-items .dropdown .btn-dropdown:active,
+.user-header-options .options-items .dropdown .btn-dropdown:hover,
+.user-header-options .options-items .dropdown .btn-dropdown:focus,
+.user-header-options .options-items .dropdown .btn-dropdown:focus-visible {
+    background-color: rgba(var(--main-c), 0.75);
+    opacity: 1;
+}
+
+.user-header-options .options-items .dropdown .dropdown-menu {
+    --bs-body-bg: rgba(var(--main-c), 0.75);
+    --bs-body-color: rgb(var(--light-c));
+}
+
+.user-header-options .options-items .dropdown .dropdown-menu .dropdown-item {
+    text-transform: capitalize;
+}
+
+.user-header-options
+    .options-items
+    .dropdown
+    .dropdown-menu
+    .dropdown-item:active,
+.user-header-options
+    .options-items
+    .dropdown
+    .dropdown-menu
+    .dropdown-item:hover,
+.user-header-options
+    .options-items
+    .dropdown
+    .dropdown-menu
+    .dropdown-item:focus,
+.user-header-options
+    .options-items
+    .dropdown
+    .dropdown-menu
+    .dropdown-item:focus-visible {
+    background-color: transparent !important;
+    color: rgb(var(--sec-c)) !important;
+}
+
+.div-pagination .div-pagination .text-muted {
+    color: rgb(var(--main-c));
+}
+.div-pagination .pagination {
+    --bs-pagination-border-color: transparent !important;
+    --bs-link-color: rgb(var(--main-c)) !important;
+    --bs-pagination-disabled-bg: rgba(var(--main-c), 0.05) !important;
+    --bs-pagination-active-border-color: transparent !important;
+    --bs-pagination-active-color: rgb(var(--sec-c)) !important;
+    --bs-pagination-active-bg: rgba(var(--main-c), 0.9) !important;
+    --bs-pagination-disabled-border-color: transparent !important;
+    --bs-pagination-disabled-color: rgb(var(--sec-c)) !important;
+    --bs-pagination-disabled-bg: rgba(var(--main-c), 0.9) !important;
+    --bs-pagination-focus-border-color: transparent !important;
+    --bs-pagination-focus-color: rgb(var(--sec-c)) !important;
+    --bs-pagination-focus-bg: rgba(var(--main-c), 0.9) !important;
+    --bs-pagination-hover-border-color: transparent !important;
+    --bs-pagination-hover-color: rgb(var(--sec-c)) !important;
+    --bs-pagination-hover-bg: rgba(var(--main-c), 0.9) !important;
+    --bs-pagination-focus-box-shadow: none !important;
+    font-weight: bold;
 }

@@ -23,9 +23,14 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AdminSeeder::class,
+            CategorySeeder::class,
             CursoSeeder::class,
-            ConteudoSeeder::class,
-            QuestionarioSeeder::class,
+            ModuloSeeder::class,
+            VideoSeeder::class,
+            SlideSeeder::class,
+            ConteudoSeeder::class
+            // ConteudoSeeder::class,
+            // QuestionarioSeeder::class,
         ]);
     }
 }

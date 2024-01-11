@@ -10,46 +10,40 @@ use Illuminate\Http\Request;
 
 class ConteudoController extends Controller
 {
+
+    public function view(Request $request)
+    {
+        if (!isset($request->curso_id)) {
+            return redirect()->route('workspace');
+        }
+
+        $cursos = Curso::all();
+        $curso = Curso::findOrFail($request->curso_id);
+        return view('admin.workspace-conteudo', compact('curso', 'cursos'));
+    }
+
     public function create(Request $request)
     {
-        $id = $request->curso_id;
-        $curso = Curso::where('id', $id)->get();
-        $qtd = $curso[0]->modulos;
-        $dbConteudos = Conteudo::where('curso_id', $id)->get();
+        $request->validate([
+            'title' => 'required|string|min: 1|max: 300',
+            'text' => 'required|string|min: 25|max: 2500',
+            'type' => 'required|string',
+            'modulo_id' => 'required',
+            'curso_id' => 'required'
+        ]);
 
-        if (empty($dbConteudos[0]->id) || count($dbConteudos) < $qtd) {
-            if (count($dbConteudos) < $qtd) {
-                $new_qtd = $qtd;
-                $qtd = $new_qtd - count($dbConteudos);
-            }
+        
 
-            $request->validate([
-                'name.*' => 'required|string',
-                'text.*' => 'required|string',
-                'link.*' => 'nullable|string',
-            ]);
+        $modulo = $request->except('_token');
 
-            $conteudos = $request->except('_token');
-            for ($i = 0; $i < $qtd; $i++) {
-                $conteudo['name'] = $conteudos['name'][$i];
-                $conteudo['text'] = $conteudos['text'][$i];
-                $conteudo['link'] = $conteudos['link'][$i];
-                $conteudo['numbering'] = $i;
-                $conteudo['curso_id'] = $id;
+        $number_of_modules = Modulo::where('curso_id', $modulo['curso_id'])->count();
 
-                Conteudo::create($conteudo);
+        $modulo['order'] = $number_of_modules;
 
-                $curso = Curso::find($curso[0]->id);
-                $curso->ready = "ok";
-                $curso->save();
-            }
+        Modulo::create($modulo);
 
-
-            return redirect()->route('view-create-quest', ['id' => $id])
-                ->with('status', 'Conteudos do curso criados com sucesso!');
-        }
-        return back()
-            ->with('status', 'Erro!');
+        $curso = Curso::findOrFail($modulo['curso_id']);
+        return view('admin.workspace-modulo', compact('curso'));
     }
 
     public function edit(Request $request)

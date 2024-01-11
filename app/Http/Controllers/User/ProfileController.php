@@ -18,20 +18,12 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
 
-    // public function view()
-    // {
-
-    //     $user = User::find(Auth::user()->id);
-
-    //     return view('profile.edit', compact('user'));
-    // }
-
-    
-    public function edit(Request $request): View
+    public function view()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+
+        $user = User::find(Auth::user()->id);
+
+        return view('profile.edit', compact('user'));
     }
 
     public function update(ProfileUpdateRequest $request): RedirectResponse

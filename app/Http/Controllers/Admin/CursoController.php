@@ -3,147 +3,167 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Conteudo;
 use App\Models\Curso;
 use App\Models\Matricula;
+use App\Models\Modulo;
 use App\Models\Questionario;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CursoController extends Controller
 {
-    public function cursos()
-    {
-        $cursos = Curso::all();
-        if (empty($cursos[0]->id) && Auth::user()->type == 1) {
-            return redirect()->route('view-create-curso');
-        }
 
-        if (isset(Auth::user()->id)) {
-            $matricula = Matricula::where('user_id', Auth::user()->id)->get();
-            return view('admin.workspace', compact('cursos', 'matricula'));
-        } else {
-            return view('admin.workspace', compact('cursos'));
-        }
-    }
-
-    public function view_create(Request $request)
+    public function view(Request $request)
     {
+        $categories = Category::all();
+
         if (!isset($request->curso_id)) {
-            return view('admin.create-curso')
-                ->with('status', 'Crie um curso');
+            return view('admin.creators.create-edit-curso', compact('categories'));
         }
+
         $curso = Curso::find($request->curso_id);
 
-        if (!isset($curso) || empty($curso)) {
-            return view('admin.create-curso')
-                ->with('status', 'Crie um curso');
-        }
-
-        $conts = Conteudo::where('curso_id', $curso->id)->get();
-
-        if (isset($conts) && !empty($conts)) {
-            return view('admin.create-curso', compact('curso', 'conteudos'));
-        } else {
-            return view('admin.create-curso', compact('curso'));
-        }
+        return view('admin.creators.create-edit-curso', compact('curso', 'categories'));
     }
 
     public function create(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'img' => 'required|image|max: 10000',
-            'desc' => 'required|string',
-            'desc_more' => 'nullable|string',
-            'duration' => 'required|integer',
-            'real_price' => 'required',
-        ], [
-            'img.max' => 'A imagem é muito grande!',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required|string',
+                'img' => 'required|image|max: 10000',
+                'desc' => 'required|string',
+                'duration' => 'required|integer',
+                'real_price' => 'required|integer'
+            ],
+            [
+                'name' => 'O Nome do curso não foi informado.',
+                'img' => ['max' => 'A imagem é muito grande!', 'required' => 'A imagem é obrigatória.'],
 
-        $curso = $request->except('token');
-        
-        $curso['img'] = $request->img->store('images');
+            ]
+        );
 
-        if(empty($curso['desc_more'])) {
-            $curso['desc_more'] = $curso['desc'];
+        $curso = $request->except('_token');
+        // dd($curso);
+        $curso['img'] = $request->img->store('images/uploads/cursos');
+
+        $curso['promotion_price'] = ($curso['real_price']) - ($curso['real_price'] * $curso['promotion']) / 100;
+        $curso['visible'] = false;
+        $curso['release_date'] = Carbon::now();
+        $curso['user_id'] = Auth::user()->id;
+
+        $category_id = Category::where('name', $curso['category_name'])->get();
+
+        if (!isset($category_id[0]->id) || empty($category_id[0]->id)) {
+            $category_created = Category::create([
+                'name' => $curso['category_name'],
+                'amount' => 1
+            ]);
+
+            $curso['category_id'] = $category_created->id;
+        } else {
+            $curso['category_id'] = $category_id[0]->id;
+
+            $category_id[0]->update(['amount' => ($category_id[0]->amount + 1)]);
         }
-        $curso['promotion'] = 0;
-        $curso['promotion'] = 0;
-        $curso['promotion_price'] = $curso['real_price'];
-        // $curso['promotion_price'] = ($curso['real_price']) - ($curso['real_price'] * $curso['promotion']) / 100;
-        $curso['modulos'] = 0;
-        $curso['ready'] = "no";
-        
+
         $curso = Curso::create($curso);
 
-        return redirect()->route('view.create.curso', compact('curso'))
+        Modulo::create([
+            'title' => "Introdução",
+            'desc' => "",
+            'order' => 0,
+            'curso_id' => $curso->id
+        ]);
+
+        return redirect()->route('curso.workspace', ['curso_id' => $curso->id])
             ->with('status', 'Curso criado com sucesso!');
     }
 
     public function edit(Request $request)
     {
-        $id = $request->id;
 
         $request->validate([
-            'name' => 'required',
+            'id' => 'required',
+            'name' => 'required|string',
             'img' => 'nullable|image|max: 10000',
-            'desc' => 'required',
-            'desc_more' => 'required',
-            'duration' => 'required',
-            'modulos' => 'required',
-            'real_price' => 'required',
-            'promotion' => 'required',
+            'desc' => 'required|string',
+            'duration' => 'required|integer|max: 6000',
+            'real_price' => 'required|integer',
+            'promotion' => 'required|integer|max: 100',
+            'visible' => 'nullable'
         ]);
 
+
         if (!empty($request->img)) {
-            Storage::delete($request->img);
-            $curso['img'] = $request->img->store('images');
             $curso = $request->except('_token');
+
+            if (Storage::exists($request->img_old)) {
+                Storage::delete($request->img_old);
+            }
+            $curso['img'] = $request->img->store('images/uploads/cursos');
         } else {
             $curso = $request->except('_token', 'img');
         }
 
-        $ago_curso = Curso::findOrFail($id);
+        $curso_edit = Curso::findOrFail($request->id);
+        $category_old = Category::findOrFail($curso_edit->category->id);
 
-        if ($request->modulos != $ago_curso->modulos) {
-            $conteudos = Conteudo::where('curso_id', $id)->get();
-            if ($conteudos->count() > $request->modulos) {
-                return back()
-                    ->with('status', 'Você não pode mudar o número de modulos para um número menor. Exclua os conteúdos manualmente!');
-            } else{
-                $curso['ready'] = "no";
+        $curso['promotion_price'] = ($request->real_price) - ($request->real_price * $request->promotion) / 100;
+
+        $curso['visible'] = isset($curso['visible']) && $curso['visible'] == 'on' ? true : false;
+
+        $category_id = Category::where('name', $curso['category_name'])->get();
+
+        if (!isset($category_id[0]->id) || empty($category_id[0]->id)) {
+            $category_created = Category::create([
+                'name' => $curso['category_name'],
+                'amount' => 1
+            ]);
+
+            $curso['category_id'] = $category_created->id;
+        } else {
+            $total_courses_using_category = Curso::where('category_id', $curso_edit->category_id)->count();
+            $curso['category_id'] = $category_id[0]->id;
+
+            if ($curso['category_id'] != $curso_edit->category_id) {
+                $category_id[0]->update(['amount' => ($category_id[0]->amount + 1)]);
             }
         }
 
-        if ($request->promotion != $ago_curso->promotion || $request->real_price != $ago_curso->real_price) {
-            if ($request->promotion != 0) {
-                $curso['promotion_price'] = ($request->real_price) - ($request->real_price * $request->promotion) / 100;
-            } else {
-                $curso['promotion_price'] = $request->real_price;
-            }
-        }
+        $curso_edit->update($curso);
 
-        Curso::findOrFail($id)->update($curso);
+        if (isset($total_courses_using_category) && $total_courses_using_category == 0) {
+            dd("deletando o category");
+            Category::findOrFail($category_old->id)->delete();
+        }
 
         return back()
             ->with('status', 'Dados editados com sucesso!');
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
+
+        $id = $request->id;
         $curso = Curso::findOrFail($id);
         $conteudos = Conteudo::where('curso_id', $id)->get();
 
-        for ($i = 0; $i < $conteudos->count(); $i++) {
-            $conteudos[$i]->delete();
+        if (count($conteudos) > 0) {
+            for ($i = 0; $i < $conteudos->count(); $i++) {
+                $conteudos[$i]->delete();
+            }
         }
 
-        Storage::delete($curso->img);
-        $curso->delete();
+        if (!empty($curso->img)) {
+            Storage::delete($curso->img);
+        }
 
+        $curso->delete();
         return back()->with('status', 'Deletado com sucesso!');
     }
 }

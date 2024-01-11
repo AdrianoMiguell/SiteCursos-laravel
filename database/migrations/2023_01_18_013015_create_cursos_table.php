@@ -17,14 +17,21 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('img')->nullable();
-            $table->string('desc', 500);
-            $table->string('desc_more', 5000);
+            $table->string('desc', 2500);
             $table->mediumInteger('duration');
-            $table->smallInteger('modulos');
-            $table->float('real_price');
+            $table->integer('real_price');
             $table->smallInteger('promotion');
-            $table->float('promotion_price');
-            $table->string('ready', 10);
+            $table->integer('promotion_price');
+            $table->boolean('visible');
+            $table->date('release_date');
+            $table->foreignId('category_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
 
