@@ -25,4 +25,27 @@ class Modulo extends Model
     {
         return $this->hasMany(Conteudo::class);
     }
+
+    public function matricula()
+    {
+        return $this->hasMany(Matricula::class);
+    }
+
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        parent::creating(function ($modulo) {
+            $lastRegister = self::where('curso_id', $modulo->curso_id)->orderBy('order', 'desc')->first();
+
+            $newOrder = $lastRegister ? $lastRegister->order + 1 : 1;
+
+            $modulo->order = $newOrder;
+        });
+    }
 }

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Conteudo;
 use App\Models\Curso;
-use App\Models\Questionario;
+use App\Models\Modulo;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 
 class ConteudoController extends Controller
@@ -35,10 +36,6 @@ class ConteudoController extends Controller
         
 
         $modulo = $request->except('_token');
-
-        $number_of_modules = Modulo::where('curso_id', $modulo['curso_id'])->count();
-
-        $modulo['order'] = $number_of_modules;
 
         Modulo::create($modulo);
 
@@ -84,7 +81,7 @@ class ConteudoController extends Controller
         }
 
         $conteudos = Conteudo::where('curso_id', $curso->id)->get();
-        $quests = Questionario::where('curso_id', $curso->id)->get();
+        $quests = Quiz::where('curso_id', $curso->id)->get();
 
         $tot_modulos = $curso->modulos;
 

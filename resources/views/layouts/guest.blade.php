@@ -46,6 +46,8 @@
 
         @yield('welcome')
     @endif
+
+    @yield('scripts')
 </body>
 
 </html>

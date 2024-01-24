@@ -1,128 +1,237 @@
+{{-- @dd($cursos_recomendados) --}}
+
 @extends('layouts.app')
 
-
-
-{{-- 
-
-<style>
-    body {
-        overflow-x: visible;
-    }
-
-    .div_mycursos {
-        display: flex;
-        justify-content: start;
-        padding: 0 5em;
-    }
-
-    .div_control {
-        position: absolute;
-        bottom: 0;
-    }
-
-    .img_legend {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .img_legend>.legend {
-        font-size: 10pt
-    }
-</style>
-
 @section('content')
-    <form action="{{ route('search') }}" method="POST" class="search_form p-5 m-0 mb-3 d-block text-center"
-        style="background-color: rgba(var(--main-cor), .98);">
-        <legend class="text-light"> Pesquisa </legend>
-        <input type="search" name="search" id="search_input" maxlength="25" size="30">
-        <button type="submit" class="search_btn btnGeral">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
-                viewBox="0 0 16 16">
-                <path
-                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-            </svg>
-        </button>
-    </form>
 
-    @if (isset($matricula))
-        <div class="view_cursos mt-5">
-            <div class="view_cursos_content" onclick="view_curso(0)"> Cursos disponibiizados </div>
-            <div class="view_cursos_content" onclick="view_curso(1)"> Meus cursos </div>
-            <div class="view_cursos_content" onclick="view_curso(2)"> Meus Certificados </div>
-        </div>
-    @else
-        <div class="view_cursos mt-5">
-            <div class="view_cursos_content fs-5"> Cursos disponibiizados </div>
-        </div>
-    @endif
+    <style>
+        .div-user-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 2.5rem;
+        }
 
-    <section class="section-cursos mt-5 my-1">
-        <div class="div-cursos">
-            @forelse ($cursos as $key => $curso)
-                <div class="curso">
-                    <div class="img-curso">
-                        <img src="{{ asset('storage/' . $curso->img) }}" alt="">
-                    </div>
-                    <div class="info-curso">
-                        <span class="name"> {{ $curso->name }} </span>
-                        <span class="desc"> {{ $curso->desc }} </span>
-                        <div class="d-flex justify-content-between">
-                            <span> Duração : {{ $curso->duration }} </span>
-                            <span> Modulos : {{ $curso->modulos }} </span>
-                        </div>
-                        <div class="info-price">
-                            @if ($curso->promotion_price == 0)
-                                <span class="price"> Gratuito </span>
-                            @else
-                                <span class="price"> Preço: R$ {{ $curso->promotion_price }} </span>
-                            @endif
-                            <a class="btnGeral" href="{{ route('view.curso', ['curso_id' => $curso->id]) }}">
-                                <i class="bi bi-eye-fill"></i>
-                                visualizar</a>
-                        </div>
-                    </div>
+        .div-user-info .user-info-records {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        .div-user-info .user-info-records .record {
+            margin: 1rem;
+            padding: 15px 25px;
+            display: grid;
+            gap: .5rem;
+            min-height: 85px;
+            min-width: 200px;
+            color: rgb(var(--light-c));
+            background: linear-gradient(to bottom, rgb(var(--main-c)) 5%, rgb(var(--tert-c)) 200%);
+        }
+
+        .div-user-info .user-info-records .record .data {
+            font-size: 30pt;
+        }
+
+        .div-cursos-scrollbar {
+            justify-content: start !important;
+            flex-wrap: nowrap !important;
+            flex-direction: row !important;
+            gap: 2rem;
+            padding: 1.5rem .25rem;
+            width: 100% !important;
+            overflow: hidden;
+            overflow-x: visible;
+        }
+
+        .div-cursos-scrollbar::-webkit-scrollbar {
+            height: 10px;
+            background-color: rgba(var(--main-c), .25);
+            border-radius: 10px;
+        }
+
+        .div-cursos-scrollbar::-webkit-scrollbar-thumb {
+            background-color: rgba(var(--main-c), .75);
+            border-radius: 10px;
+        }
+    </style>
+
+    <section class="container section-view-dashboard py-5">
+
+        <div class="div-user-info d-flex flex-wrap gap-3 align-items-start mt-5">
+            <div class="user-info d-flex gap-3 align-items-center">
+                <i class="bi bi-person-circle" style="font-size: 90pt;"></i>
+                <div>
+                    <span class="d-block m-1 fs-3">{{ Auth::user()->name }}</span>
+                    <span class="d-block m-1 fs-5">{{ Auth::user()->email }}</span>
                 </div>
-            @empty
-                <div class="alert alery-primary">
-                    <h1>Nenhum curso cadastrado</h1>
-                </div>
-            @endforelse
-            <div>
-                {{ $cursos->links('vendor.pagination.bootstrap-4') }}
             </div>
+            <div class="user-info-records">
+                <div class="d-flex gap-3">
+                    <div class="record">
+                        <span class="d-flex gap-3 justify-content-between align-items-start">
+                            <span>Total</span>
+                            <i class="bi bi-star-fill"></i>
+                        </span>
+                        <span class="data">{{ $amount_cursos }}</span>
+                    </div>
+                    <div class="record">
+                        <span class="d-flex gap-3 justify-content-between align-items-start">
+                            <span>Em andamento</span>
+                            <i class="bi bi-star-fill"></i>
+                        </span>
+                        <span class="data">{{ $amount_cursos }}</span>
+                    </div>
+                </div>
+                <div class="d-flex gap-3">
+                    <div class="record">
+                        <span class="d-flex gap-3 justify-content-between align-items-start">
+                            <span>Concluidos</span>
+                            <i class="bi bi-star-fill"></i>
+                        </span>
+                        <span class="data">{{ $amount_cursos }}</span>
+                    </div>
+                    <div class="record">
+                        <span class="d-flex gap-3 justify-content-between align-items-start">
+                            <span>Carga horária</span>
+                            <i class="bi bi-star-fill"></i>
+                        </span>
+                        <span class="data">{{ $amount_cursos }} h </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        @if (isset($cursos))
+            <h2 class="title mt-5 mb-2"> Cursos em andamento </h2>
+            <div class="div-cursos div-cursos-scrollbar">
+                @forelse ($cursos as $key => $curso)
+                    @php
+                        $promotion_price = $curso->price_in_cents == 0 ? $curso->price_in_cents : ($curso->price_in_cents / 100) * (1 - $curso->promotion);
+                        $promotion_price = number_format($promotion_price, 2, ',', '.');
+                    @endphp
+
+                    <a class="text-decoration-none" href="{{ route('user.curso', ['slug' => $curso->slug]) }}">
+                        <div class="curso">
+                            <div class="img-curso">
+                                <img src="{{ asset('storage/' . $curso->img) }}" alt="">
+                            </div>
+                            <div class="info-curso">
+                                <span class="name"> {{ $curso->name }} </span>
+                                <span class="creator d-flex align-items-center gap-2">
+                                    <div>
+                                        <i class="bi bi-person-circle"></i>
+                                        <span>{{ $curso->user->name }}</span>
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-tag-fill"></i>
+                                        <span>{{ $curso->category->type }}</span>
+                                    </div>
+                                </span>
+                                <span class="desc my-2"> {{ $curso->desc }} </span>
+                                <div class="d-flex justify-content-between">
+                                    <span> Carga Horária : {{ number_format($curso->duration, 0, ',', '.') }} horas
+                                    </span>
+                                </div>
+
+                                <div class="d-flex gap-5 align-items-start my-1 mt-2" style="font-size: 13pt;">
+                                    @if ($curso->price_in_cents == 0)
+                                        <span class="text-price-format price"> Gratuito </span>
+                                    @else
+                                        @if ($curso->promotion > 0)
+                                            <span class="text-price-format price">
+                                                R$ {{ $promotion_price }}
+                                            </span>
+                                            <span class="text-price-format text-decoration-line-through">
+                                                R$ {{ number_format($curso->price_in_cents / 100, 2, ',', '.') }}
+                                            </span>
+                                        @else
+                                            <span class="text-price-format price"> R$
+                                                {{ number_format($curso->price_in_cents / 100, 2, ',', '.') }}
+                                            </span>
+                                        @endif
+                                    @endif
+                                </div>
+
+                            </div>
+                        </div>
+                    </a>
+                @empty
+                    <span class="alert alert-primary">
+                        Nenhum curso iniciado até o momento.
+                    </span>
+                @endforelse
+            </div>
+        @endif
+
+        @if (isset($cursos_recomendados))
+            <h2 class="title mt-5 mb-2">Cursos recomendados</h2>
+            <div class="div-cursos  div-cursos-scrollbar">
+                @forelse ($cursos_recomendados as $key => $cursoRecom)
+                    @php
+                        $promotion_price = $cursoRecom->price_in_cents == 0 ? $cursoRecom->price_in_cents : ($cursoRecom->price_in_cents / 100) * (1 - $cursoRecom->promotion);
+                        $promotion_price = number_format($promotion_price, 2, ',', '.');
+                    @endphp
+
+                    <a class="text-decoration-none" href="{{ route('user.curso', ['slug' => $cursoRecom->slug]) }}">
+                        <div class="curso">
+                            <div class="img-curso">
+                                <img src="{{ asset('storage/' . $cursoRecom->img) }}" alt="">
+                            </div>
+                            <div class="info-curso">
+                                <span class="name"> {{ $cursoRecom->name }} </span>
+                                <span class="creator d-flex align-items-center gap-2">
+                                    <div>
+                                        <i class="bi bi-person-circle"></i>
+                                        <span>{{ $cursoRecom->user->name }}</span>
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-tag-fill"></i>
+                                        <span>{{ $cursoRecom->category->type }}</span>
+                                    </div>
+                                </span>
+                                <div class="d-flex justify-content-between">
+                                    <span> Carga Horária : {{ number_format($cursoRecom->duration, 0, ',', '.') }} horas
+                                    </span>
+                                </div>
+
+                                <div class="d-flex gap-5 align-items-start my-1 mt-2" style="font-size: 13pt;">
+                                    @if ($cursoRecom->price_in_cents == 0)
+                                        <span class="text-price-format price"> Gratuito </span>
+                                    @else
+                                        @if ($cursoRecom->promotion > 0)
+                                            <span class="text-price-format price">
+                                                R$ {{ $promotion_price }}
+                                            </span>
+                                            <span class="text-price-format text-decoration-line-through">
+                                                R$ {{ number_format($cursoRecom->price_in_cents / 100, 2, ',', '.') }}
+                                            </span>
+                                        @else
+                                            <span class="text-price-format price"> R$
+                                                {{ number_format($cursoRecom->price_in_cents / 100, 2, ',', '.') }}
+                                            </span>
+                                        @endif
+                                    @endif
+                                </div>
+
+                            </div>
+                        </div>
+                    </a>
+                @empty
+                    <span class="alert alert-primary">
+                        Não foram encontrados cursos para serem recomendados de acordo com o seu perfil.
+                    </span>
+                @endforelse
+            </div>
+        @endif
+
+        <div class="div-pagination d-flex align-items-center justify-content-center gap-2 my-5">
+            {{ $cursos->appends(['search' => isset($search) ? $search : ''])->links('pagination.bootstrap-5') }}
         </div>
     </section>
 
-    @if (isset($matricula))
-        <section class="area_cursos mt-5 my-1">
-            @include('user.myCursos')
-        </section>
+@endsection
 
-
-        @foreach ($cursos as $key => $c)
-            @foreach ($matricula as $m)
-                @if ($m->curso_id == $c->id && $m->status == 'concluido')
-                    <section class="area_cursos mt-5 my-1 gap-5">
-                        <div class="img_legend">
-                            <img src="https://img.freepik.com/vetores-gratis/ilustracao-de-certificacao-iso-com-pessoas-e-bloco-de-notas_23-2148689291.jpg?w=740&t=st=1680278085~exp=1680278685~hmac=b60e87305dee46a75aa245d3c40c4e0fab4dc8b871701d01e79fd886bd16d439"
-                                alt="" width="350px">
-                            <div class="legend">
-                                Imagem de <a
-                                    href="https://br.freepik.com/vetores-gratis/ilustracao-de-certificacao-iso-com-pessoas-e-bloco-de-notas_10329155.htm#query=certifica%C3%A7%C3%A3o&position=13&from_view=search&track=sph"
-                                    class="link">Freepik</a>
-                            </div>
-                        </div>
-                        <div>
-                            <a href="{{ route('view.certifs') }}" class="link fs-4"> Ver meus certificados </a>
-
-                            <img src="{{ asset('storage/certificado/certificado_curso.png') }}" alt="">
-                        </div>
-                    </section>
-                @endif
-            @endforeach
-        @endforeach
-    @endif
-
+{{-- @section('scripts')
 @endsection --}}

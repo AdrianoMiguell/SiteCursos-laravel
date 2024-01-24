@@ -13,23 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quizzes', function (Blueprint $table) {
+        Schema::create('matriculas', function (Blueprint $table) {
             $table->id();
-            $table->string('question');
-            $table->string('alt1');
-            $table->string('alt2');
-            $table->string('alt3');
-            $table->string('alt4');
-            $table->string('alt5')->nullable();
-            $table->smallInteger('altTrue');
-            $table->smallInteger('order');
-            $table->string('img')->nullable();
-            $table->string('legend')->nullable();
-            $table->foreignId('modulo_id')
-                ->nullable()
+            $table->foreignId('user_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('curso_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('modulo_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('conteudo_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('status', 20);
             $table->timestamps();
         });
     }
@@ -41,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quizzes');
+        Schema::dropIfExists('matriculas');
     }
 };

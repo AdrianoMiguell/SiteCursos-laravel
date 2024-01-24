@@ -15,14 +15,53 @@
             <p> Você vai estudar, praticar e discutir e se aprofundar com o apoio de nossos cursos. </p>
         </div>
         <div class="div-welcome d-flex justify-content-evenly gap-5 m-5">
-            <div class="tags">
-                <span class="text-primary text-center"> Front-end </span>
-            </div>
-            <div class="tags">
-                <span class="text-danger"> Back-end </span>
-            </div>
-            <div class="tags">
-                <span class="text-warning"> Programação </span>
+            <div class="d-flex flex-wrap justify-content-center gap-5 px-5">
+                @foreach ($categories as $key => $category)
+                    @if ($key <= 10)
+                        <a class="tags text-decoration-none" href="{{ route('user.view_cursos', ['category_id' => $category->id]) }}">
+                            <span> {{ $category->type }} </span>
+                        </a>
+                    @endif
+                @endforeach
+                {{-- <div class="tags">
+                    <span> Design </span>
+                </div>
+                <div class="tags">
+                    <span> Desenvolvimento Web </span>
+                </div>
+                <div class="tags">
+                    <span> Aplicativos Mobile </span>
+                </div>
+                <div class="tags">
+                    <span> Segurança da Informação </span>
+                </div>
+                <div class="tags">
+                    <span> Database </span>
+                </div>
+                <div class="tags">
+                    <span> Ciência de Dados </span>
+                </div>
+                <div class="tags">
+                    <span> Machine Learning </span>
+                </div>
+                <div class="tags">
+                    <span> IOT </span>
+                </div>
+                <div class="tags">
+                    <span> JavaScript </span>
+                </div>
+                <div class="tags">
+                    <span> Inovação </span>
+                </div> --}}
+
+                {{-- @if (isset($categories) && count($categories) > 0)
+                   @foreach ($categories as $category)
+                       <div class="tags">
+                           <span class=""> {{ $category->name }} </span>
+                       </div>
+                   @endforeach
+               @endif --}}
+
             </div>
         </div>
     </section>
@@ -106,8 +145,12 @@
         <div class="div-cursos">
             @if (isset($cursos))
                 @forelse ($cursos as $key => $curso)
-                    <a class="text-decoration-none" href="{{ route('view.curso', ['curso_id' => $curso->id]) }}">
+                    @php
+                        $promotion_price = $curso->price_in_cents == 0 ? $curso->price_in_cents : ($curso->price_in_cents / 100) * (1 - $curso->promotion);
+                        $promotion_price = number_format($promotion_price, 2, ',', '.');
+                    @endphp
 
+                    <a class="text-decoration-none" href="{{ route('user.curso', ['slug' => $curso->slug]) }}">
                         <div class="curso">
                             <div class="img-curso">
                                 <img src="{{ asset('storage/' . $curso->img) }}" alt="">
@@ -116,14 +159,29 @@
                                 <span class="name"> {{ $curso->name }} </span>
                                 <span class="desc"> {{ $curso->desc }} </span>
                                 <span class="creator"> {{ $curso->user->name }} </span>
+
                                 <div class="d-flex justify-content-between">
-                                    <span> Duração : {{ $curso->duration }} </span>
+                                    <span> Carga Horária : {{ $curso->duration }} horas </span>
                                 </div>
-                                @if ($curso->promotion_price == 0)
-                                    <span class="price"> Gratuito </span>
-                                @else
-                                    <span class="price"> Preço: R$ {{ $curso->promotion_price }} </span>
-                                @endif
+
+                                <div class="d-flex gap-5 align-items-start my-1 mt-2" style="font-size: 13pt;">
+                                    @if ($curso->price_in_cents == 0)
+                                        <span class="text-price-format price"> Gratuito </span>
+                                    @else
+                                        @if ($curso->promotion > 0)
+                                            <span class="text-price-format price">
+                                                R$ {{ $promotion_price }}
+                                            </span>
+                                            <span class="text-price-format text-decoration-line-through">
+                                                R$ {{ number_format($curso->price_in_cents / 100, 2, ',', '.') }}
+                                            </span>
+                                        @else
+                                            <span class="text-price-format price"> R$
+                                                {{ number_format($curso->price_in_cents / 100, 2, ',', '.') }}
+                                            </span>
+                                        @endif
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -143,4 +201,8 @@
         </div>
     </section>
 
+@endsection
+
+
+@section('scripts')
 @endsection

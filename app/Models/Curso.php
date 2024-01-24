@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Curso extends Model
 {
@@ -14,11 +15,13 @@ class Curso extends Model
         'img',
         'desc',
         'duration',
-        'real_price',
+        'price_in_cents',
         'promotion',
-        'promotion_price',
         'visible',
+        'stars',
+        'learners',
         'release_date',
+        'slug',
         'category_id',
         'user_id'
     ];
@@ -28,7 +31,8 @@ class Curso extends Model
     //     return $this->hasMany(Conteudo::class);
     // }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -41,19 +45,29 @@ class Curso extends Model
     {
         return $this->hasMany(Modulo::class);
     }
-    // public function mo()
-    // {
-    //     return $this->hasMany(Conteudo::class);
-    // }
 
     public function matricula()
     {
-        return $this->belongsTo(Matricula::class);
+        return $this->hasMany(Matricula::class);
     }
 
-    public function quiz()
+    public function getSlugAttribute()
     {
-        // return $this->belongsTo(Quiz::class);
-        return $this->hasMany(Quiz::class);
+        // Verifica se já existe um identificador único (uniqid) no slug
+        if (Str::contains($this->attributes['slug'], '-')) {
+            return $this->attributes['slug'];
+        }
+
+        // Se não houver identificador único, adiciona um novo uniqid
+        return $this->attributes['slug'] . '-' . uniqid();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($curso) {
+            $curso->slug = Str::slug($curso->name) . '-' . uniqid();
+        });
     }
 }

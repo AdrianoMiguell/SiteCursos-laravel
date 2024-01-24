@@ -60,13 +60,13 @@
                     <input class="form-control" type="number" min="1" max="3600" id="duration-curso"
                         name="duration" value="{{ $curso->duration ?? '' }}" placeholder="Horas">
                 </div>
-                <div class="col-2">
-                    <label class="form-label" for="real_price">Preço</label>
-                    <input class="form-control" type="number" id="real_price" name="real_price" min="0"
-                        value="{{ $curso->real_price ?? '' }}">
+                <div class="col-3">
+                    <label class="form-label" for="price_in_cents">Preço (in cents)</label>
+                    <input class="form-control" type="number" id="price_in_cents" name="price_in_cents" min="0"
+                        value="{{ $curso->price_in_cents ?? '' }}">
                 </div>
                 <div class="col-2">
-                    <label class="form-label" for="real_price">Categoria</label>
+                    <label class="form-label" for="category_type">Categoria</label>
 
                     <datalist id="list_category">
                         @if (isset($categories) && count($categories) > 1)
@@ -76,13 +76,13 @@
                         @endif
                     </datalist>
 
-                    <input class="form-control" type="text" id="category_name" name="category_name" list="list_category"
-                        value="{{ $curso->category->name ?? '' }}">
+                    <input class="form-control" type="text" id="category_type" name="category_type" list="list_category"
+                        value="{{ $curso->category->type ?? '' }}">
                 </div>
                 <div class="col-3">
                     <label class="form-label" for="promotion">Promoção (%)</label>
                     <input class="form-control" type="number" id="promotion" name="promotion" min="0" max="100"
-                        value="{{ $curso->promotion ?? '' }}" placeholder="Valor">
+                        value="{{ $curso->promotion * 100 ?? '' }}" placeholder="Valor">
                 </div>
 
                 @isset($curso)

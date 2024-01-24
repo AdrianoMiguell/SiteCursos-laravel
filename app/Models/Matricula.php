@@ -12,17 +12,30 @@ class Matricula extends Model
     protected $fillable = [
         'user_id',
         'curso_id',
+        'modulo_id',
+        'conteudo_id',
         'status',
-        'modulo_atual',
-        'price',
     ];
 
     public function curso()
     {
-        return $this->hasMany(Curso::class);
+        return $this->belongsTo(Curso::class);
     }
-    // public function users()
-    // {
-    //     return $this->hasMany(User::class);
-    // }
+    public function modulo()
+    {
+        return $this->belongsTo(Modulo::class);
+    }
+    public function conteudo()
+    {
+        return $this->belongsTo(Conteudo::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($matricula) {
+            $matricula->status = 'em andamento';
+        });
+    }
 }

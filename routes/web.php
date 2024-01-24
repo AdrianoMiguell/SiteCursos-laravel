@@ -17,14 +17,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/', 'index')->name('index');
-    Route::get('curso', 'view_curso')->name('view.curso');
-    Route::get('/users/viewcursos', 'view_cursos')->name('user.view_cursos');
+    Route::get('/cursos', 'view_cursos')->name('user.view_cursos');
+    Route::get('curso/{slug}', 'view_curso')->name('user.curso');
 });
 
 Route::middleware('auth')->group(function () {
-
     Route::controller(UserController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->middleware('verified')->name('dashboard');
+        Route::get('/curso/studyspace/{slug}/', 'curso_studyspace')->name('user.curso.studyspace');
+        Route::get('/curso/studyspace/quiz/{slug}', 'curso_studyspace_quiz')->name('user.curso.studyspace.quiz');
+        Route::post('pay/{slug}', 'pay_curso')->name('user.curso.pay');
+    });
+
+    Route::controller(MatriculaController::class)->group(function () {
+        Route::post('/matricula/{slug}', 'create')->name('curso.matricula.create');
+        Route::delete('/matricula/{id}', 'delete')->name('curso.matricula.delete');
+        Route::get('/matricula-previous', 'previous')->name('curso.matricula.previous');
+        Route::get('/matricula-next', 'next')->name('curso.matricula.next');
+        Route::post('/matricula-score', 'score')->name('curso.matricula.score');
+        Route::post('/matricula/conclusion/{slug}', 'conclusion')->name('matricula.conclusion');
     });
 
     Route::controller(ProfileController::class)->group(function () {
@@ -33,16 +44,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
 
-    Route::controller(MatriculaController::class)->group(function () {
-        Route::post('matricula', 'matricula')->name('matricula.curso');
-        Route::get('conteudo', 'user_conteudo')->name('user.conteudo');
-        Route::post('next_modulo', 'next_modulo')->name('next.modulo');
-        Route::get('prev_modulo', 'prev_modulo')->name('prev.modulo');
-        Route::post('questions_modulo', 'questions_modulo')->name('questions.modulo');
-        Route::post('finished_modulo', 'finished_modulo')->name('finished.modulo');
-        Route::get('view_certificados', 'view_certificados')->name('view.certifs');
-        Route::get('certificado', 'certificado')->name('certificado');
-    });
 
     Route::middleware('admin')->group(function () {
 

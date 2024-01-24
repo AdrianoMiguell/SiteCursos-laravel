@@ -19,7 +19,6 @@ class ModuloFactory extends Factory
         return [
             'title' => fake()->text(20),
             'desc' => fake()->paragraph(),
-            'order' => fake()->randomNumber(1),
             'curso_id' => fake()->numberBetween(1, 100)
         ];
     }

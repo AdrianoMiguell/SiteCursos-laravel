@@ -38,7 +38,7 @@ class CursoController extends Controller
                 'img' => 'required|image|max: 10000',
                 'desc' => 'required|string',
                 'duration' => 'required|integer',
-                'real_price' => 'required|integer'
+                'price_in_cents' => 'required|integer'
             ],
             [
                 'name' => 'O Nome do curso não foi informado.',
@@ -51,7 +51,6 @@ class CursoController extends Controller
         // dd($curso);
         $curso['img'] = $request->img->store('images/uploads/cursos');
 
-        $curso['promotion_price'] = ($curso['real_price']) - ($curso['real_price'] * $curso['promotion']) / 100;
         $curso['visible'] = false;
         $curso['release_date'] = Carbon::now();
         $curso['user_id'] = Auth::user()->id;
@@ -93,7 +92,7 @@ class CursoController extends Controller
             'img' => 'nullable|image|max: 10000',
             'desc' => 'required|string',
             'duration' => 'required|integer|max: 6000',
-            'real_price' => 'required|integer',
+            'price_in_cents' => 'required|integer',
             'promotion' => 'required|integer|max: 100',
             'visible' => 'nullable'
         ]);
@@ -112,16 +111,15 @@ class CursoController extends Controller
 
         $curso_edit = Curso::findOrFail($request->id);
         $category_old = Category::findOrFail($curso_edit->category->id);
-
-        $curso['promotion_price'] = ($request->real_price) - ($request->real_price * $request->promotion) / 100;
+        $curso['promotion'] = $curso['promotion'] / 100;
 
         $curso['visible'] = isset($curso['visible']) && $curso['visible'] == 'on' ? true : false;
 
-        $category_id = Category::where('name', $curso['category_name'])->get();
+        $category_id = Category::where('type', $curso['category_name'])->get();
 
         if (!isset($category_id[0]->id) || empty($category_id[0]->id)) {
             $category_created = Category::create([
-                'name' => $curso['category_name'],
+                'type' => $curso['category_name'],
                 'amount' => 1
             ]);
 

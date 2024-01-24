@@ -89,3 +89,24 @@ footer {
     padding: 2.5em;
     color: rgb(var(--white-c));
 }
+
+.alert {
+    opacity: 0;
+    visibility: hidden;
+    animation: hiddenAlert 6s ease-in-out;
+}
+
+@keyframes hiddenAlert {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    90% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}

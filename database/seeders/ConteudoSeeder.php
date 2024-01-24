@@ -16,44 +16,164 @@ class ConteudoSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('conteudos')->insert([
-        //     [
-        //         'name' => 'Curso de Java #01 - História do Java - Gustavo Guanabara',
-        //         'img' => null,
-        //         'text' => 'Como funciona o Java? Você sabe o que é JVM, JRE, JDK, JavaC, bytecode? É exatamente isso que você vai aprender durante essa aula.
-        //         O JavaC (Java Compiler) vai transformar o Código Fonte Java em Bytecode, um código específico que vai executar em uma Máquina Virtual Java (Java Virtual Machine - JVM). As IDEs mais conhecidas são o Eclipse, o IntelliJ e o NetBeans. O Curso em Vídeo de Java vai adotar o NetBeans para o aprendizado da Linguagem Java.
-        //         Na próxima aula, veremos as versões do Java que usaremos (SE/EE/ME), em qual lugar vamos fazer o download do JDK para o Java SE e veremos as instruções para a instalação da plataforma Java que será utilizada durante todo o curso.',
-        //         'link' => 'https://www.youtube.com/embed/sTX0UEplF54?start=10',
-        //         'numbering' => 0,
-        //         'curso_id' => 1
-        //     ],
-        //     [
-        //         'name' => 'Curso de Java #02 - Como Funciona o Java - Gustavo Guanabara',
-        //         'img' => 'images/basico.jpg',
-        //         'text' => 'Como funciona o Java? Você sabe o que é JVM, JRE, JDK, JavaC, bytecode? É exatamente isso que você vai aprender durante essa aula. O JavaC (Java Compiler) vai transformar o Código Fonte Java em Bytecode, um código específico que vai executar em uma Máquina Virtual Java (Java Virtual Machine - JVM). As IDEs mais conhecidas são o Eclipse, o IntelliJ e o NetBeans. O Curso em Vídeo de Java vai adotar o NetBeans para o aprendizado da Linguagem Java. Na próxima aula, veremos as versões do Java que usaremos (SE/EE/ME), em qual lugar vamos fazer o download do JDK para o Java SE e veremos as instruções para a instalação da plataforma Java que será utilizada durante todo o curso.',
-        //         'link' => 'https://www.youtube.com/embed/v_ZCtgwbS3o?start=10',
-        //         'numbering' => 1,
-        //         'curso_id' => 1
-        //     ],
-        //     [
-        //         'name' => 'Curso de PHP',
-        //         'img' => null,
-        //         'text' => 'PHP é uma linguagem de script de uso geral voltada para o desenvolvimento da web. Ele foi originalmente criado pelo programador dinamarquês-canadense Rasmus Lerdorf em 1993 e lançado em 1995. ',
-        //         'link' => 'https://www.youtube.com/embed/F7KzJ7e6EAc?start=10',
-        //         'numbering' => 0,
-        //         'curso_id' => 2
-        //     ],
-        //     [
-        //         'name' => 'Curso de HTML ',
-        //         'img' => null,
-        //         'text' => 'HTML é uma linguagem de marcação utilizada na construção de páginas na Web. Documentos HTML podem ser interpretados por navegadores. A tecnologia é fruto da junção entre os padrões HyTime e SGML. HyTime é um padrão para a representação estruturada de hipermídia e conteúdo baseado em tempo.',
-        //         'link' => 'https://www.youtube.com/embed/E6CdIawPTh0?start=10',
-        //         'numbering' => 0,
-        //         'curso_id' => 3
-        //     ]
-        // ]);
+
+        DB::table('conteudos')->insert([
+            [
+                'type' => 4,
+                'order' => 1,
+                'apostila_id' => null,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => 1,
+                'modulo_id' => 1,
+                'curso_id' => 1,
+            ],
+            [
+                'type' => 4,
+                'order' => 2,
+                'apostila_id' => null,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => 2,
+                'modulo_id' => 1,
+                'curso_id' => 1,
+            ],
+            [
+                'type' => 4,
+                'order' => 1,
+                'apostila_id' => null,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => 3,
+                'modulo_id' => 2,
+                'curso_id' => 1,
+            ],
+            [
+                'type' => 4,
+                'order' => 2,
+                'apostila_id' => null,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => 4,
+                'modulo_id' => 2,
+                'curso_id' => 1,
+            ],
+            [
+                'type' => 3,
+                'order' => 1,
+                'apostila_id' => null,
+                'desafio_id' => null,
+                'slide_id' => 1,
+                'video_id' => null,
+                'modulo_id' => 3,
+                'curso_id' => 1,
+            ],
+            [
+                'type' => 3,
+                'order' => 2,
+                'apostila_id' => null,
+                'desafio_id' => null,
+                'slide_id' => 2,
+                'video_id' => null,
+                'modulo_id' => 3,
+                'curso_id' => 1,
+            ],
+
+            // New curso
+            [
+                'type' => 1,
+                'order' => 1,
+                'apostila_id' => 1,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => null,
+                'modulo_id' => 4,
+                'curso_id' => 2,
+            ],
+            [
+                'type' => 1,
+                'order' => 2,
+                'apostila_id' => 2,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => null,
+                'modulo_id' => 4,
+                'curso_id' => 2,
+            ],
+            [
+                'type' => 2,
+                'order' => 3,
+                'apostila_id' => null,
+                'desafio_id' => 1,
+                'slide_id' => null,
+                'video_id' => null,
+                'modulo_id' => 4,
+                'curso_id' => 2,
+            ],
+
+            [
+                'type' => 1,
+                'order' => 1,
+                'apostila_id' => 3,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => null,
+                'modulo_id' => 5,
+                'curso_id' => 2,
+            ],
+            [
+                'type' => 1,
+                'order' => 2,
+                'apostila_id' => 4,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => null,
+                'modulo_id' => 5,
+                'curso_id' => 2,
+            ],
+            [
+                'type' => 2,
+                'order' => 3,
+                'apostila_id' => null,
+                'desafio_id' => 2,
+                'slide_id' => null,
+                'video_id' => null,
+                'modulo_id' => 5,
+                'curso_id' => 2,
+            ],
+
+            [
+                'type' => 1,
+                'order' => 1,
+                'apostila_id' => 5,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => null,
+                'modulo_id' => 6,
+                'curso_id' => 2,
+            ],
+            [
+                'type' => 1,
+                'order' => 2,
+                'apostila_id' => 6,
+                'desafio_id' => null,
+                'slide_id' => null,
+                'video_id' => null,
+                'modulo_id' => 6,
+                'curso_id' => 2,
+            ],
+            [
+                'type' => 2,
+                'order' => 3,
+                'apostila_id' => null,
+                'desafio_id' => 2,
+                'slide_id' => null,
+                'video_id' => null,
+                'modulo_id' => 6,
+                'curso_id' => 2,
+            ],
+        ]);
 
         Conteudo::factory()->count(100)->create();
-    
     }
 }

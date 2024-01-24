@@ -18,7 +18,6 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-
         if(Auth::user()->type != '1') {
             return redirect()->intended(RouteServiceProvider::HOME)
             ->with('error', 'Você não pode ter acesso a esta pagina!');

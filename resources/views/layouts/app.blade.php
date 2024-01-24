@@ -55,6 +55,9 @@
     @include('layouts.footer')
 </body>
 
-<script src="/js/functions.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+
+@yield('scripts')
+{{-- <script src="/js/functions.js"></script> --}}
 
 </html>

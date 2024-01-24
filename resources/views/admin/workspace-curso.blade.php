@@ -20,7 +20,7 @@
                     <h3 class="title fs-4 my-2"> Informações </h3>
                     <span class="duration">Categoria : {{ $curso->category->name }} </span>
                     <span class="duration">Carga Horária : {{ $curso->duration }} </span>
-                    <span class="real_price"> Preço : R$ {{ $curso->real_price }} </span>
+                    <span class="price_in_cents"> Preço : R$ {{ $curso->price_in_cents }} </span>
                     <span class="promotion"> Promoção Atual: {{ $curso->promotion }}% </span>
                     <span class="promotion_price">Preço Promocional: {{ $curso->promotion_price }}</span>
                     <span class="quant_ready">Taxa de conclusão: 0% </span>

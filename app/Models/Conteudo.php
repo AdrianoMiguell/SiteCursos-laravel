@@ -13,9 +13,9 @@ class Conteudo extends Model
         'type',
         'order',
         'apostila_id',
-        'video_id',
-        'slide_id',
         'desafio_id',
+        'slide_id',
+        'video_id',
         'modulo_id',
         'curso_id'
     ];
@@ -40,5 +40,22 @@ class Conteudo extends Model
     public function video()
     {
         return $this->belongsTo(Video::class);
+    }
+    public function matricula()
+    {
+        return $this->hasMany(Matricula::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        parent::creating(function ($conteudo) {
+            $lastRegister = self::where([['curso_id', $conteudo->curso_id], ['modulo_id', $conteudo->modulo_id]])->orderBy('order', 'desc')->first();
+
+            $newOrder = $lastRegister ? $lastRegister->order + 1 : 1;
+
+            $conteudo->order = $newOrder;
+        });
     }
 }

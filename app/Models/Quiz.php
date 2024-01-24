@@ -20,12 +20,11 @@ class Quiz extends Model
         'alt5',
         'altTrue',
         'order',
-        'curso_id',
         'modulo_id',
     ];
 
-    public function curso() {
-        // return $this->hasOne(Curso::class);
-        return $this->belongsTo(Curso::class);
-    } 
+    public function modulo()
+    {
+        return $this->belongsTo(Modulo::class);
+    }
 }

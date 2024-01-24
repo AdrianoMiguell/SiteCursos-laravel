@@ -19,11 +19,13 @@ return new class extends Migration
             $table->string('img')->nullable();
             $table->string('desc', 2500);
             $table->mediumInteger('duration');
-            $table->integer('real_price');
-            $table->smallInteger('promotion');
-            $table->integer('promotion_price');
+            $table->integer('price_in_cents');
+            $table->decimal('promotion', 3, 2);
             $table->boolean('visible');
+            $table->integer('stars')->default(0);
+            $table->integer('learners')->default(0);
             $table->date('release_date');
+            $table->string('slug')->unique();
             $table->foreignId('category_id')
                 ->constrained()
                 ->onUpdate('cascade')

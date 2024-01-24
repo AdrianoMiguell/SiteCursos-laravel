@@ -41,10 +41,6 @@ class ModuloController extends Controller
 
         $modulo = $request->except('_token');
 
-        $number_of_modules = Modulo::where('curso_id', $modulo['curso_id'])->count();
-
-        $modulo['order'] = $number_of_modules + 1;
-
         Modulo::create($modulo);
 
         return redirect()->route('curso.workspace', ['curso_id' => $modulo['curso_id']])->with('status', 'Modulo criado com sucesso!');

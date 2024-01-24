@@ -35,7 +35,7 @@
                                 <td>{{ $curso->desc }}</td>
                                 <td>{{ $curso->category->name }}</td>
                                 <td>{{ $curso->duration }}</td>
-                                <td>{{ $curso->real_price }}</td>
+                                <td>{{ $curso->price_in_cents }}</td>
                                 <td>{{ $curso->promotion }}</td>
                                 <td>
                                     <div class="div-actions">
