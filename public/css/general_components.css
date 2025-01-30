@@ -1,0 +1,114 @@
+.btnGeral {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    margin: auto 5px;
+    cursor: pointer;
+    text-align: center;
+    transition-duration: 0.5s;
+}
+
+.btnGeral-dark {
+    opacity: .9;
+    background-color: rgba(var(--main-c));
+    box-shadow: 0 0 1px 1px rgb(var(--sec-c));
+    color: rgb(var(--light-c));
+}
+.btnGeral-dark:hover,
+.btnGeral-dark:active,
+.btnGeral-dark:focus,
+.btnGeral-dark:focus-visible {
+    opacity: 1;
+    color: rgb(var(--quat-c));
+    box-shadow: 0 0 1px 1px rgb(var(--quat-c));
+}
+
+.btnGeral-light {
+    opacity: .9;
+    background-color: rgb(var(--quat-c));
+    color: rgb(var(--main-c));
+    box-shadow: 0 0 1px 1px rgb(var(--main-c));
+}
+.btnGeral-light:hover,
+.btnGeral-light:active,
+.btnGeral-light:focus,
+.btnGeral-light:focus-visible {
+    opacity: 1;
+    box-shadow: 0 0 1px 1px rgb(var(--sec-c));
+    color: rgb(var(--tert-c));
+}
+
+.section_gradient_dark {
+    background: linear-gradient(
+        160deg,
+        rgb(var(--main-c)) 85%,
+        rgb(var(--main-c), 0.9) 100%
+    );
+}
+.section_gradient_light {
+    background: linear-gradient(
+        to bottom,
+        rgb(var(--tert-c)),
+        rgb(var(--sec-c)) 120%
+    );
+}
+
+.main_limit {
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+.block_style {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.corte {
+    font-style: oblique;
+}
+
+.dark_text {
+    color: rgb(var(--main-c));
+}
+.light_text {
+    color: rgb(var(--white-c));
+}
+.bege_text {
+    color: rgb(var(--sec-c));
+}
+
+.link {
+    text-decoration: none;
+    font-style: italic;
+}
+.link:hover {
+    background-color: rgba(var(--black-c), 0.2);
+}
+
+.light_border {
+    border: 2px solid rgb(var(--tert-c));
+}
+.dark_border {
+    border: 2px solid rgb(var(--main-c));
+}
+
+.link_block:not(hover),
+.link_block:not(focus),
+.link_block:focus,
+.link_block:hover {
+    background-color: rgba(var(--black-c), 0.6);
+    color: rgb(var(--white-c));
+    box-shadow: none;
+    cursor: auto;
+}
+
+.conteudo_link {
+    margin: 0 1em;
+}
+
+.title {
+    font-weight: 600;
+    color: rgb(var(--tert-c));
+}

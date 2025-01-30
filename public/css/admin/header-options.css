@@ -1,0 +1,47 @@
+.header-options {
+    margin-top: 0;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(var(--main-c), 0.98);
+}
+.header-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    min-height: 75px;
+    margin: 0;
+    padding: 0;
+}
+.header-item {
+    cursor: pointer;
+    transition: 0.5s;
+}
+.header-item a {
+    text-decoration: none;
+    color: rgb(var(--light-c));
+    min-height: 75px;
+    min-width: 40px;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+.header-item i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-item:active,
+.header-item:hover,
+.header-item:focus,
+.header-item:focus-visible {
+    background-color: rgba(var(--sec-c), 0.25);
+}

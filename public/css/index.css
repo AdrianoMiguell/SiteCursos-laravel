@@ -1,0 +1,117 @@
+body {
+    background-color: rgb(var(--main-c));
+    color: rgb(var(--light-c));
+}
+
+.header-welcome {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.div-welcome {
+}
+.div-welcome h2 {
+    font-weight: 800;
+    font-size: 32pt;
+}
+
+.header-welcome .div-welcome .tags:first-child {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #087770, 1px 1px 15px #33faed;
+}
+.header-welcome .div-welcome .tags:nth-child(2) {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #3e16b4, 1px 1px 15px #8e6df1;
+}
+.header-welcome .div-welcome .tags:nth-child(3) {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #770861, 1px 1px 15px #ff71e3;
+}
+.header-welcome .div-welcome .tags:nth-child(4) {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #770808, 1px 1px 15px #fa3333;
+}
+.header-welcome .div-welcome .tags:nth-child(5) {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #083877, 1px 1px 15px #334efa;
+}
+.header-welcome .div-welcome .tags:nth-child(6) {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #087741, 1px 1px 15px #33fa90;
+}
+.header-welcome .div-welcome .tags:nth-child(7) {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #087733, 1px 1px 15px #5bfa33;
+}
+.header-welcome .div-welcome .tags:nth-child(8) {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #770845, 1px 1px 15px #fa3379;
+}
+.header-welcome .div-welcome .tags:nth-child(9) {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #776808, 1px 1px 15px #fae933;
+}
+.header-welcome .div-welcome .tags:nth-child(10) {
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px #086a77, 1px 1px 15px #3375fa;
+}
+
+.background-video-message {
+    position: relative;
+    width: 100vw;
+    min-height: 120vh;
+    height: 100%;
+    margin-bottom: 0.5rem;
+    z-index: 0;
+}
+.background-video-message .video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    filter: opacity(0.25) grayscale(0.1);
+    z-index: 0;
+}
+
+.background-video-message .section-message {
+    position: relative;
+    z-index: 2;
+}
+
+.background-video-message .div-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 1.5em;
+    translate: 0 -20em;
+}
+.background-video-message .div-message span {
+    font-size: 20pt;
+}
+.background-video-message .div-message .message-cards {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+    padding: 0 2em;
+    gap: 2em;
+}
+.background-video-message .div-message .message-cards .card {
+    width: 25rem;
+    min-height: 90px;
+    background: rgba(var(--main-c), 0.1);
+    backdrop-filter: blur(0.25rem);
+}
+.background-video-message .div-message .message-cards .card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+}
