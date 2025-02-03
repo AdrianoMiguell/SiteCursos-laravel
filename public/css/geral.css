@@ -44,7 +44,7 @@ main {
 }
 
 .text_light_gradient {
-    /* font-family: 'Source Sans Pro', sans-serif; */
+    font-family: 'Source Sans Pro', sans-serif;
     background-image: linear-gradient(
         to bottom,
         rgb(var(--sec-c)),

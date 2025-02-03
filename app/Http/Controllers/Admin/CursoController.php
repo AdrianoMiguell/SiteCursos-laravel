@@ -172,4 +172,8 @@ class CursoController extends Controller
         $curso->delete();
         return back()->with('status', 'Deletado com sucesso!');
     }
+
+    public function messageActualizationInSoon() {
+        return back()->withErrors("Atualização em breve!");
+    }
 }

@@ -22,7 +22,7 @@ class CursoFactory extends Factory
 
         return [
             'name' => $name_curso,
-            'img' => 'images/basico.jpg',
+            'img' => 'permanent/technology-course.jpg',
             'desc' => fake()->paragraph(),
             'duration' => fake()->numberBetween(0, 3500),
             'price_in_cents' => fake()->numberBetween(0, 50000),

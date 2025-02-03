@@ -23,45 +23,6 @@
                         </a>
                     @endif
                 @endforeach
-                {{-- <div class="tags">
-                    <span> Design </span>
-                </div>
-                <div class="tags">
-                    <span> Desenvolvimento Web </span>
-                </div>
-                <div class="tags">
-                    <span> Aplicativos Mobile </span>
-                </div>
-                <div class="tags">
-                    <span> Segurança da Informação </span>
-                </div>
-                <div class="tags">
-                    <span> Database </span>
-                </div>
-                <div class="tags">
-                    <span> Ciência de Dados </span>
-                </div>
-                <div class="tags">
-                    <span> Machine Learning </span>
-                </div>
-                <div class="tags">
-                    <span> IOT </span>
-                </div>
-                <div class="tags">
-                    <span> JavaScript </span>
-                </div>
-                <div class="tags">
-                    <span> Inovação </span>
-                </div> --}}
-
-                {{-- @if (isset($categories) && count($categories) > 0)
-                   @foreach ($categories as $category)
-                       <div class="tags">
-                           <span class=""> {{ $category->name }} </span>
-                       </div>
-                   @endforeach
-               @endif --}}
-
             </div>
         </div>
     </section>
@@ -74,7 +35,7 @@
 
         <div class="section-message">
             <div class="div-message">
-                <span> Os melhores cursos estão aqui! </span>
+                <span class="fw-bold fs-1"> Os melhores cursos estão aqui! </span>
                 <div class="message-cards">
                     <div class="card">
                         <div class="card-body">
@@ -194,8 +155,8 @@
                 @endforelse
             @endif
         </div>
-        <div>
-            <a href="{{ route('user.view_cursos') }}" class="btnGeral btnGeral-dark">
+        <div class="my-5">
+            <a href="{{ route('user.view_cursos') }}" class="btnGeral btnGeral-dark py-3 px-5">
                 Ver mais
             </a>
         </div>

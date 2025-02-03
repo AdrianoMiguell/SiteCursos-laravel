@@ -21,7 +21,7 @@ class CursoSeeder extends Seeder
         DB::table('cursos')->insert([
             [
                 'name' => "Ciência de Dados",
-                'img' => "images/basico.jpg",
+                'img' => "permanent/technology-course.jpg",
                 'desc' => "A ciência de dados é o estudo dos dados para extrair insights significativos para os negócios. Ela é uma abordagem multidisciplinar que combina princípios e práticas das áreas de matemática, estatística, inteligência artificial e engenharia da computação para analisar grandes quantidades de dados.",
                 'duration' => 160,
                 'price_in_cents' => 25000,
@@ -36,7 +36,7 @@ class CursoSeeder extends Seeder
             ],
             [
                 'name' => "Python",
-                'img' => "images/basico.jpg",
+                'img' => "permanent/technology-course.jpg",
                 'desc' => "O Python é uma das linguagens de programação mais usadas no mundo, e isso deve-se, entre demais motivos, a sua complexidade, sintaxe amigável e diversas bibliotecas e recursos.",
                 'duration' => 240,
                 'price_in_cents' => 0,

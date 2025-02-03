@@ -16,6 +16,7 @@
     </script>
 
     <link rel="stylesheet" href="/css/geral.css">
+    <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/general_components.css">
 
     @if (isset($slot))

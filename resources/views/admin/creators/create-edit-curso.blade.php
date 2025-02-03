@@ -82,7 +82,7 @@
                 <div class="col-3">
                     <label class="form-label" for="promotion">Promoção (%)</label>
                     <input class="form-control" type="number" id="promotion" name="promotion" min="0" max="100"
-                        value="{{ $curso->promotion * 100 ?? '' }}" placeholder="Valor">
+                        value="{{ isset($curso->promotion) ? $curso->promotion * 100 : '' }}" placeholder="Valor">
                 </div>
 
                 @isset($curso)

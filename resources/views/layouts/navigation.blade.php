@@ -1,6 +1,6 @@
 <nav class="navbar">
     <a href="{{ isset(Auth::user()->id) ? route('dashboard') : '\\' }}" class="nav-brand">
-        <img src="./img/icons/logo_curso.png" alt="logo do site cursos play" class="brand">
+        <img src="{{asset('storage/permanent/logo_curso.png')}}" alt="logo do site cursos play" class="brand">
         <span>Cursos Play</span>
     </a>
 
@@ -16,25 +16,25 @@
                         </a>
                     </li>
                     <li class="nav-item nav-item-control">
-                        <a href="">
+                        <a href="{{ route('curso.view', ['curso_id' => null]) }}">
                             <i class="bi bi-plus"></i>
                             <span>Curso</span>
                         </a>
                     </li>
                     <li class="nav-item nav-item-control">
-                        <a href="">
+                        <a href="{{route('curso.insoon')}}">
                             <i class="bi bi-patch-check"></i>
                             <span>Certificados</span>
                         </a>
                     </li>
                     <li class="nav-item nav-item-control">
-                        <a href="">
+                        <a href="{{route('curso.insoon')}}">
                             <i class="bi bi-person-workspace"></i>
                             <span>Matriculas</span>
                         </a>
                     </li>
                     <li class="nav-item nav-item-control">
-                        <a href="">
+                        <a href="{{route('curso.insoon')}}">
                             <i class="bi bi-envelope-check-fill"></i>
                             <span>Termos</span>
                         </a>
@@ -46,7 +46,7 @@
                         <a href="{{ route('profile.view') }}">{{ Auth::user()->name }}</a>
                     </li>
                     <li class="nav-item nav-item-offcanvas">
-                        @include('admin.components.offcanvas-navbar-admin')
+                        @include('components.offcanvas-navbar-user')
                     </li>
                 </ul>
             @endauth

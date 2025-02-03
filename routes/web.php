@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
             Route::post('option_curso', 'create')->name('curso.create');
             Route::put('option_curso', 'edit')->name('curso.edit');
             Route::delete('option_curso', 'delete')->name('curso.delete');
+            Route::get('option_curso_test', 'messageActualizationInSoon')->name('curso.insoon');
         });
 
         Route::controller(ModuloController::class)->group(function () {

@@ -1,5 +1,4 @@
-<a href="/" id="logo_link" style="display: grid; text-decoration: none;" class="logo fs-5">
-    <img src="https://lh3.googleusercontent.com/Do4YWzwlk61PqRSKr_duNOUn-ivFAE8ErrcdrXCx5_8leA0LkDwz7cjxnlXEIwez-pgP12aJMXqzeEKJzrNZw5vxi9MvM2hlBPpj3aOsqXtdVKDeclE6ybzM2P8HYMkLULS7UrwH_u9t_8hkZzCzXIf6NEHaV2V0zKc_tNDO9FKpd264EtEA9021GcmK3vlJKvmCDlm8sCzaLvFG6JAGBF_WqMjHOVHePy7AByiLfyUZG40lJVwu55gNWqg0gxdzsuvGbUq7a0OnNO11SDIPwy4JqYRlAQLFMAjdxFIIUTB1fLrd_NQUb9uhEKcoUu6vE2ITVYFpD6riiPGjEJWV8v9xubEIUuxJ6h_iNMm8GD0mXJqBzQd76iT5oc6elJSfQ1qlLTWreHcdCghbfuaXD0iS2X3x2lBxYRIXC8DW5mPtupvn-yA2nEyq3MSSMWvdwFko1gLbexfmo-DbNyxr1iYPGHL0Rje5WfkEK28_nB9OqcbQZeKnPt5WVTEzedCZi1yt0urawbLqqh4RHNoeQRoRDkrKu9ZHKuMD0Kb3zMivLHphpRaz_RH6-GghJtEmsmasIariA_-pjEhzlnR-_-Wq9C3-ptKx8caoJTmJwzeokQ5hbrgNtBB5pc2RXmow5dvhnU4v3PdDU2-4ZQKEXf295WLnh36cof_20zbMCcj2HdIJ3yIU1dc2UdECOccNMfJ8xG-tl0TW1gxbD_yy3ENbrcW3mn3XfYIZSWcWojJ155z0GdHzLhj81LoVylElW9gFo_Xqwsbtmz-LYGUge1WNGW8JtSKvBjU4rjOUSBfLoJEoribVi2P1IXpLjImDhbrupe327cRmuEFEVhMAz92FX-BFR5TNVOsuEmZ1yr9u1j1moWG5_e6Vyu7uWwEVvabI0-t1UdfQlnPjAk3XNf3Am4nZKH7RVHJ5E-__jbwxuO9beoTfC3mUygQIR_-ZGmcW4cmE_coHAx3MtNs=w500-h380-s-no?authuser=0"
-        alt="logo do site cursos play" style="width: 100px; height: auto;">
-    <span style="color: rgb(var(--sec-cor))">Cursos Play</span>
+<a href="{{ isset(Auth::user()->id) ? route('dashboard') : '\\' }}" class="nav-brand">
+    <img src="{{asset('storage/permanent/logo_curso.png')}}" alt="logo do site cursos play" class="brand" width="75px">
+    <span>Cursos Play</span>
 </a>

@@ -31,25 +31,25 @@
                     </a>
                 </li>
                 <li class="offcanvas-item">
-                    <a href="">
+                    <a href="{{ route('curso.view', ['curso_id' => null]) }}">
                         <i class="bi bi-plus"></i>
                         <span>Curso</span>
                     </a>
                 </li>
                 <li class="offcanvas-item">
-                    <a href="">
+                    <a href="{{route('curso.insoon')}}">
                         <i class="bi bi-patch-check"></i>
                         <span>Certificados</span>
                     </a>
                 </li>
                 <li class="offcanvas-item">
-                    <a href="">
+                    <a href="{{route('curso.insoon')}}">
                         <i class="bi bi-person-workspace"></i>
                         <span>Matriculas</span>
                     </a>
                 </li>
                 <li class="offcanvas-item">
-                    <a href="">
+                    <a href="{{route('curso.insoon')}}">
                         <i class="bi bi-envelope-check-fill"></i>
                         <span>Termos</span>
                     </a>

@@ -1,3 +1,25 @@
+@media screen and (max-width: 912px) and (min-width: 628px) {
+    .background-video-message .div-message .message-cards .card {
+        width: auto !important;
+        max-width: 15rem;
+        min-width: 10rem;
+    }
+}
+@media screen and (max-width: 627px) {
+    .background-video-message .div-message .message-cards .card {
+        flex-shrink: 0;
+        width: 15em !important;
+    }
+
+    .background-video-message .div-message .message-cards {
+        max-width: 90vw !important;
+        flex-wrap: nowrap !important;
+        justify-content: start !important;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+}
+
 body {
     background-color: rgb(var(--main-c));
     color: rgb(var(--light-c));
@@ -19,8 +41,13 @@ body {
 .div-welcome {
 }
 .div-welcome h2 {
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 800;
-    font-size: 32pt;
+    font-size: 35pt;
+}
+.div-welcome p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15pt;
 }
 
 .header-welcome .div-welcome .tags:first-child {
@@ -70,6 +97,9 @@ body {
     min-height: 120vh;
     height: 100%;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 0;
 }
 .background-video-message .video {
@@ -81,17 +111,17 @@ body {
 }
 
 .background-video-message .section-message {
-    position: relative;
+    position: absolute;
     z-index: 2;
 }
 
 .background-video-message .div-message {
+    padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
     gap: 1.5em;
-    translate: 0 -20em;
 }
 .background-video-message .div-message span {
     font-size: 20pt;
@@ -106,7 +136,7 @@ body {
 }
 .background-video-message .div-message .message-cards .card {
     width: 25rem;
-    min-height: 90px;
+    min-height: 150px;
     background: rgba(var(--main-c), 0.1);
     backdrop-filter: blur(0.25rem);
 }
